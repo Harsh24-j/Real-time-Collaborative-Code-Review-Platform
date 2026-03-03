@@ -1,0 +1,39 @@
+# Java/Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/
+mvnw
+mvnw.cmd
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.DS_Store
+*.swp
+
+# Environment
+.env
+.env.local
+application-local.yml
+
+# Logs
+*.log
+logs/
+
+# Frontend
+node_modules/
+dist/
+build/
+.next/
+
+# Database
+*.db
+*.sqlite
+
+# AWS
+*.pem
+.aws/
