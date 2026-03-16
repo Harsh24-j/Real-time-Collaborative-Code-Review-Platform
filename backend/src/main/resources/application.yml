@@ -6,7 +6,17 @@
 spring:
   application:
     name: code-review-platform
-  
+
+  # ── Spring AI — OpenAI ChatClient auto-configuration ────────────────────
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      chat:
+        options:
+          model: gpt-4o
+          temperature: 0.3
+          max-tokens: 1500
+
   # ========================================
   # DATA PERSISTENCE - PostgreSQL Configuration
   # Skill: Data Persistence, J2EE
@@ -14,7 +24,7 @@ spring:
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/codereview}
     username: ${DATABASE_USERNAME:postgres}
-    password: ${DATABASE_PASSWORD:postgres}
+    password: ${DATABASE_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
     
     # HikariCP Connection Pool
@@ -85,11 +95,11 @@ app:
     expiration: 86400000  # 24 hours in milliseconds
     issuer: code-review-platform
   
-  # AI Integration - OpenAI API
+  # AI Integration — legacy custom properties (kept for reference)
+  # Spring AI now reads from spring.ai.openai.* below
   openai:
     api-key: ${OPENAI_API_KEY:}
-    api-url: https://api.openai.com/v1/chat/completions
-    model: gpt-4
+    model: gpt-4o
     max-tokens: 1500
     temperature: 0.3
   

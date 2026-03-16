@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { Code2, Sparkles, ArrowLeft, Upload } from 'lucide-react'
 import { reviewAPI } from '../../services/api'
+import BackgroundWrapper from '../common/BackgroundWrapper'
 
 const LANGUAGES = [
     'java', 'python', 'javascript', 'typescript', 'go', 'rust',
@@ -53,7 +54,8 @@ function CreateReview() {
     const overLimit = charCount > 100_000
 
     return (
-        <div className="max-w-4xl mx-auto animate-slide-up">
+        <BackgroundWrapper variant="code2">
+            <div className="max-w-4xl mx-auto animate-slide-up relative z-10 p-4">
 
             {/* Header */}
             <div className="flex items-center gap-4 mb-8">
@@ -69,7 +71,7 @@ function CreateReview() {
             <form onSubmit={handleSubmit} className="space-y-6">
 
                 {/* Meta card */}
-                <div className="card space-y-5">
+                <div className="glass-card-dark p-6 space-y-5 shadow-xl">
                     <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
                         Review Details
                     </h2>
@@ -147,7 +149,7 @@ function CreateReview() {
                 </div>
 
                 {/* Code card */}
-                <div className="card space-y-4">
+                <div className="glass-card-dark p-6 space-y-4 shadow-xl">
                     <div className="flex items-center justify-between">
                         <h2 className="text-sm font-semibold text-slate-300 uppercase tracking-wider">
                             Code <span className="text-red-400">*</span>
@@ -195,7 +197,8 @@ function CreateReview() {
                     </button>
                 </div>
             </form>
-        </div>
+            </div>
+        </BackgroundWrapper>
     )
 }
 

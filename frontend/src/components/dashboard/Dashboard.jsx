@@ -6,6 +6,7 @@ import {
 } from 'lucide-react'
 import { analyticsAPI, reviewAPI } from '../../services/api'
 import { useAuthStore } from '../../hooks/useAuthStore'
+import BackgroundWrapper from '../common/BackgroundWrapper'
 
 /**
  * Dashboard — platform overview with stats, recent reviews, and quick actions.
@@ -59,7 +60,7 @@ function Dashboard() {
     // ── Stat card ──────────────────────────────────────────────────────────
 
     const StatCard = ({ icon, label, value, sub, iconBg }) => (
-        <div className="card flex items-start gap-4">
+        <div className="glass-card-dark p-6 flex items-start gap-4 shadow-xl">
             <div className={`flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${iconBg}`}>
                 {icon}
             </div>
@@ -82,7 +83,8 @@ function Dashboard() {
         : []
 
     return (
-        <div className="space-y-8 animate-fade-in">
+        <BackgroundWrapper variant="mesh">
+            <div className="space-y-8 animate-fade-in relative z-10 p-4">
 
             {/* Welcome */}
             <div className="flex items-center justify-between">
@@ -133,7 +135,7 @@ function Dashboard() {
             <div className="grid lg:grid-cols-3 gap-6">
 
                 {/* Recent Reviews (2/3 width) */}
-                <div className="lg:col-span-2 card space-y-4">
+                <div className="lg:col-span-2 glass-card-dark p-6 space-y-4 shadow-xl">
                     <div className="flex items-center justify-between">
                         <h2 className="text-base font-semibold text-slate-200">Recent Reviews</h2>
                         <button
@@ -164,8 +166,8 @@ function Dashboard() {
                                     key={r.id}
                                     onClick={() => navigate(`/reviews/${r.id}`)}
                                     className="flex items-center justify-between p-3 rounded-lg
-                             bg-slate-800/50 hover:bg-slate-800 border border-transparent
-                             hover:border-slate-700 cursor-pointer transition-all group"
+                             bg-white/5 hover:bg-white/10 border border-white/5
+                             hover:border-white/20 cursor-pointer transition-all group shadow-sm"
                                 >
                                     <div className="flex items-center gap-3 min-w-0">
                                         <span>{STATUS_ICON[r.status]}</span>
@@ -200,7 +202,7 @@ function Dashboard() {
                 <div className="space-y-6">
 
                     {/* Status breakdown */}
-                    <div className="card space-y-3">
+                    <div className="glass-card-dark p-6 space-y-3 shadow-xl">
                         <h2 className="text-base font-semibold text-slate-200">Status Overview</h2>
                         {[
                             { label: 'Open', key: 'openReviews', cls: 'bg-blue-500' },
@@ -229,7 +231,7 @@ function Dashboard() {
 
                     {/* Language distribution */}
                     {topLangs.length > 0 && (
-                        <div className="card space-y-3">
+                        <div className="glass-card-dark p-6 space-y-3 shadow-xl">
                             <h2 className="text-base font-semibold text-slate-200 flex items-center gap-2">
                                 <TrendingUp className="w-4 h-4 text-blue-400" /> Top Languages
                             </h2>
@@ -243,7 +245,7 @@ function Dashboard() {
                     )}
 
                     {/* Quick actions */}
-                    <div className="card space-y-2">
+                    <div className="glass-card-dark p-6 space-y-2 shadow-xl">
                         <h2 className="text-base font-semibold text-slate-200">Quick Actions</h2>
                         {[
                             { label: 'New Review', path: '/reviews/create', icon: <Plus className="w-4 h-4" />, cls: 'btn-primary' },
@@ -258,7 +260,8 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
+        </BackgroundWrapper>
     )
 }
 

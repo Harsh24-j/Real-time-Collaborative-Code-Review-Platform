@@ -1,7 +1,12 @@
 # Real-time Collaborative Code Review Platform
 
-## Overview
-AI-powered code review platform with real-time collaboration, demonstrating full-stack development skills.
+[![Build](https://github.com/Harsh24-j/code-review-platform/workflows/CI-CD/badge.svg)](https://github.com/Harsh24-j/code-review-platform/actions)
+[![codecov](https://codecov.io/gh/Harsh24-j/code-review-platform/branch/main/graph/badge.svg)](https://codecov.io/gh/Harsh24-j/code-review-platform)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Stars](https://img.shields.io/github/stars/Harsh24-j/code-review-platform.svg)](https://github.com/Harsh24-j/code-review-platform/stargazers)
+
+## 🚀 Overview
+AI-powered real-time collaborative code review platform with WebSocket, gamification, and smart conflict resolution. Built with Spring Boot, React, PostgreSQL, Redis, Docker, and AWS EC2.
 
 ## Technology Stack
 
@@ -10,6 +15,7 @@ AI-powered code review platform with real-time collaboration, demonstrating full
 - **Spring Web** - RESTful API development
 - **Spring Security** - JWT authentication, secure coding
 - **Spring Data JPA** - Data persistence (PostgreSQL)
+- **Spring AI** - OpenAI integration for code analysis and autocorrect
 - **Spring WebSocket** - Real-time communication
 - **Hibernate** - ORM for J2EE
 - **Maven** - Dependency management
@@ -91,16 +97,26 @@ code-review-platform/
    - Automatic bug detection
    - Code smell identification
    - Security vulnerability scanning
+   - 1-Click Code Autocorrect (Spring AI)
 
 4. **Real-time Collaboration** (WebSocket)
    - Live comments
    - Online user presence
    - Typing indicators
 
-5. **Gamification** (Full-Stack)
-   - Points and badges
-   - Leaderboards
-   - Achievement system
+    - Achievement system
+
+## 📚 Documentation
+
+- [API Documentation](docs/API_DOCUMENTATION.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Deployment Guide](docs/DEPLOYMENT.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [Live Docs](https://Harsh24-j.github.io/code-review-platform)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) before submitting a pull request.
 
 ## Setup Instructions
 
@@ -147,6 +163,7 @@ GRANT ALL PRIVILEGES ON DATABASE codereview TO codereview_user;
 - GET `/api/reviews` - List all reviews
 - POST `/api/reviews` - Create new review
 - GET `/api/reviews/{id}` - Get review details
+- GET `/api/reviews/{id}/suggestions` - Get detailed AI suggestions and code fixes
 - PUT `/api/reviews/{id}` - Update review
 - DELETE `/api/reviews/{id}` - Delete review
 

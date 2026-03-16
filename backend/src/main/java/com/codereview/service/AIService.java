@@ -1,5 +1,6 @@
 package com.codereview.service;
 
+import com.codereview.dto.AiSuggestionDto;
 import com.codereview.model.AISuggestion;
 import com.codereview.model.CodeReview;
 import com.codereview.repository.AISuggestionRepository;
@@ -7,12 +8,13 @@ import com.codereview.repository.CodeReviewRepository;
 import com.codereview.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.converter.BeanOutputConverter;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,43 +22,31 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * AIService — OpenAI GPT-4 integration for automated code analysis.
+ * AIService — Spring AI-powered code analysis using GPT-4o.
  * Skills: Server Side, RESTful API, Spring Boot
  *
- * Uses WebClient (WebFlux) for non-blocking HTTP calls to the OpenAI API.
- * Analysis runs @Async so it never blocks the HTTP request thread.
+ * Uses Spring AI's {@link ChatClient} (auto-configured from spring.ai.openai.*)
+ * and {@link BeanOutputConverter} for type-safe, structured JSON output.
+ *
+ * Analysis runs {@code @Async} so HTTP request threads are never blocked.
  */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class AIService {
 
-    private final WebClient.Builder webClientBuilder;
+    /** Spring AI auto-configured ChatClient (wired from spring.ai.openai.*). */
+    private final ChatClient chatClient;
     private final AISuggestionRepository aiSuggestionRepository;
     private final CodeReviewRepository reviewRepository;
     private final ReviewService reviewService;
     private final CommentService commentService;
 
-    @Value("${app.openai.api-key:}")
-    private String apiKey;
-
-    @Value("${app.openai.api-url:https://api.openai.com/v1/chat/completions}")
-    private String apiUrl;
-
-    @Value("${app.openai.model:gpt-4}")
-    private String model;
-
-    @Value("${app.openai.max-tokens:1500}")
-    private int maxTokens;
-
-    @Value("${app.openai.temperature:0.3}")
-    private double temperature;
-
     // ── Public API ─────────────────────────────────────────────────────────
 
     /**
-     * Asynchronously analyse a code review.
-     * Deletes previous AI suggestions, calls GPT-4, persists results,
+     * Asynchronously analyse a code review using Spring AI + GPT-4o.
+     * Deletes previous AI suggestions, calls the model, persists results,
      * and updates the quality score on the review.
      */
     @Async
@@ -65,22 +55,27 @@ public class AIService {
         CodeReview review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ResourceNotFoundException("Review", "id", reviewId));
 
-        log.info("Starting AI analysis for review {} ({})", reviewId, review.getLanguage());
+        log.info("[Spring AI] Starting analysis for review {} ({})",
+                reviewId, review.getLanguage());
 
         // Clear stale suggestions before re-analysis
         aiSuggestionRepository.deleteByReviewId(reviewId);
 
-        String prompt = buildPrompt(review);
-        String rawResponse = callOpenAI(prompt);
+        List<AISuggestion> suggestions;
+        try {
+            suggestions = callSpringAI(review);
+        } catch (Exception e) {
+            log.error("[Spring AI] Analysis failed, falling back to mock: {}", e.getMessage());
+            suggestions = getMockSuggestions(review);
+        }
 
-        List<AISuggestion> suggestions = parseResponse(rawResponse, review);
         aiSuggestionRepository.saveAll(suggestions);
 
         // Compute and persist quality score
         double score = computeQualityScore(suggestions);
         reviewService.updateQualityScore(reviewId, score);
 
-        // Post AI suggestions as comments (line-specific where available)
+        // Post CRITICAL and WARNING suggestions as inline comments
         suggestions.stream()
                 .filter(s -> s.getSeverity() == AISuggestion.Severity.CRITICAL
                         || s.getSeverity() == AISuggestion.Severity.WARNING)
@@ -88,28 +83,29 @@ public class AIService {
                         reviewId, s.getLineStart(),
                         "[" + s.getSeverity() + " – " + s.getCategory() + "] " + s.getSuggestion()));
 
-        log.info("AI analysis complete: reviewId={}, suggestions={}, score={}",
+        log.info("[Spring AI] Analysis complete: reviewId={}, suggestions={}, score={}",
                 reviewId, suggestions.size(), score);
+
         return CompletableFuture.completedFuture(suggestions);
     }
 
-    // ── Prompt Engineering ─────────────────────────────────────────────────
+    // ── Spring AI call ─────────────────────────────────────────────────────
 
-    private String buildPrompt(CodeReview review) {
-        return String.format("""
-                You are an expert code reviewer. Analyse the following %s code and provide structured feedback.
+    /**
+     * Calls GPT-4o via Spring AI ChatClient with a {@link BeanOutputConverter}.
+     *
+     * {@code BeanOutputConverter} automatically:
+     * - Appends a JSON schema instruction to the prompt
+     * - Deserialises the model response into {@code List<AiSuggestionDto>}
+     */
+    private List<AISuggestion> callSpringAI(CodeReview review) {
+        // Type-safe converter: GPT JSON array → List<AiSuggestionDto>
+        BeanOutputConverter<List<AiSuggestionDto>> converter = new BeanOutputConverter<>(
+                new ParameterizedTypeReference<List<AiSuggestionDto>>() {
+                });
 
-                For each issue found, respond with a JSON array of objects in this exact format:
-                [
-                  {
-                    "severity": "CRITICAL|WARNING|INFO",
-                    "category": "SECURITY|PERFORMANCE|STYLE|BUGS|BEST_PRACTICE",
-                    "suggestion": "Clear description of the issue and how to fix it",
-                    "codeSnippet": "The problematic code excerpt (max 3 lines)",
-                    "lineStart": <line number or null>,
-                    "lineEnd": <line number or null>
-                  }
-                ]
+        String promptText = """
+                You are an expert code reviewer. Analyse the following {language} code and provide structured feedback.
 
                 Focus on:
                 - Security vulnerabilities (SQL injection, XSS, hardcoded secrets)
@@ -118,113 +114,95 @@ public class AIService {
                 - Potential bugs and edge cases
                 - Best practice violations
 
+                For each issue found, respond with a JSON array where each object has:
+                - severity: CRITICAL | WARNING | INFO
+                - category: SECURITY | PERFORMANCE | STYLE | BUGS | BEST_PRACTICE
+                - suggestion: clear description and how to fix it
+                - codeSnippet: the problematic code excerpt (max 3 lines), or null
+                - fixedCodeSnippet: the complete corrected replacement for the problematic code excerpt, or null if no code change is required. Make sure this is a drop-in replacement.
+                - lineStart: first affected line number (1-based), or null
+                - lineEnd: last affected line number (1-based), or null
+
+                {format}
+
                 Code to review:
-                ```%s
-                %s
+                ```{language}
+                {code}
                 ```
+                """;
 
-                Return only the JSON array. No additional text.
-                """,
-                review.getLanguage(),
-                review.getLanguage(),
-                review.getCodeContent());
-    }
+        PromptTemplate template = new PromptTemplate(promptText);
+        var prompt = template.create(Map.of(
+                "language", review.getLanguage(),
+                "code", truncateCode(review.getCodeContent()),
+                "format", converter.getFormat()));
 
-    // ── OpenAI API Call ────────────────────────────────────────────────────
+        String rawResponse = chatClient
+                .prompt(prompt)
+                .call()
+                .content();
+        log.debug("[Spring AI] Raw response length: {} chars", rawResponse == null ? 0 : rawResponse.length());
 
-    @SuppressWarnings("unchecked")
-    private String callOpenAI(String prompt) {
-        if (apiKey == null || apiKey.isBlank()) {
-            log.warn("OpenAI API key not configured — returning mock response");
-            return getMockResponse();
+        if (rawResponse == null || rawResponse.isBlank()) {
+            log.warn("[Spring AI] Received empty response from model");
+            return new ArrayList<>();
         }
 
-        try {
-            Map<String, Object> requestBody = Map.of(
-                    "model", model,
-                    "max_tokens", maxTokens,
-                    "temperature", temperature,
-                    "messages", List.of(
-                            Map.of("role", "system",
-                                    "content", "You are an expert code reviewer. Return only valid JSON."),
-                            Map.of("role", "user", "content", prompt)));
+        List<AiSuggestionDto> dtos = converter.convert(rawResponse);
+        return mapToEntities(dtos, review);
+    }
 
-            Map<String, Object> response = webClientBuilder.build()
-                    .post()
-                    .uri(apiUrl)
-                    .header("Authorization", "Bearer " + apiKey)
-                    .header("Content-Type", "application/json")
-                    .bodyValue(requestBody)
-                    .retrieve()
-                    .bodyToMono(Map.class)
-                    .onErrorResume(e -> {
-                        log.error("OpenAI API call failed: {}", e.getMessage());
-                        return Mono.just(Map.of());
-                    })
-                    .block();
+    // ── Mapping ────────────────────────────────────────────────────────────
 
-            if (response == null || !response.containsKey("choices")) {
-                return getMockResponse();
+    private List<AISuggestion> mapToEntities(List<AiSuggestionDto> dtos, CodeReview review) {
+        List<AISuggestion> entities = new ArrayList<>();
+        if (dtos == null)
+            return entities;
+
+        for (AiSuggestionDto dto : dtos) {
+            try {
+                AISuggestion entity = AISuggestion.builder()
+                        .review(review)
+                        .severity(parseSeverity(dto.severity()))
+                        .category(parseCategory(dto.category()))
+                        .suggestion(dto.suggestion())
+                        .codeSnippet(dto.codeSnippet())
+                        .fixedCodeSnippet(dto.fixedCodeSnippet())
+                        .lineStart(dto.lineStart())
+                        .lineEnd(dto.lineEnd())
+                        .build();
+                entities.add(entity);
+            } catch (Exception e) {
+                log.warn("[Spring AI] Skipping malformed suggestion DTO: {}", e.getMessage());
             }
-
-            List<Map<String, Object>> choices = (List<Map<String, Object>>) response.get("choices");
-            Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
-            return (String) message.get("content");
-
-        } catch (Exception e) {
-            log.error("Error calling OpenAI: {}", e.getMessage());
-            return getMockResponse();
         }
+        return entities;
     }
 
-    // ── Response Parsing ───────────────────────────────────────────────────
-
-    @SuppressWarnings("unchecked")
-    private List<AISuggestion> parseResponse(String raw, CodeReview review) {
-        List<AISuggestion> suggestions = new ArrayList<>();
+    private AISuggestion.Severity parseSeverity(String severity) {
+        if (severity == null) return AISuggestion.Severity.INFO;
         try {
-            // Strip markdown fences if present
-            String json = raw.trim()
-                    .replaceAll("(?s)^```json\\s*", "")
-                    .replaceAll("(?s)```\\s*$", "")
-                    .trim();
-
-            com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-            List<Map<String, Object>> items = mapper.readValue(json,
-                    new com.fasterxml.jackson.core.type.TypeReference<>() {
-                    });
-
-            for (Map<String, Object> item : items) {
-                try {
-                    AISuggestion s = AISuggestion.builder()
-                            .review(review)
-                            .severity(AISuggestion.Severity.valueOf((String) item.get("severity")))
-                            .category(AISuggestion.Category.valueOf((String) item.get("category")))
-                            .suggestion((String) item.get("suggestion"))
-                            .codeSnippet((String) item.getOrDefault("codeSnippet", null))
-                            .lineStart(item.get("lineStart") instanceof Integer i ? i : null)
-                            .lineEnd(item.get("lineEnd") instanceof Integer i ? i : null)
-                            .build();
-                    suggestions.add(s);
-                } catch (Exception e) {
-                    log.warn("Skipping malformed AI suggestion item: {}", e.getMessage());
-                }
-            }
-        } catch (Exception e) {
-            log.error("Failed to parse AI response: {}", e.getMessage());
+            return AISuggestion.Severity.valueOf(severity.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return AISuggestion.Severity.INFO;
         }
-        return suggestions;
     }
 
-    // ── Quality Score Calculation ──────────────────────────────────────────
+    private AISuggestion.Category parseCategory(String category) {
+        if (category == null) return AISuggestion.Category.BEST_PRACTICE;
+        try {
+            return AISuggestion.Category.valueOf(category.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return AISuggestion.Category.BEST_PRACTICE;
+        }
+    }
+
+    // ── Quality Score ──────────────────────────────────────────────────────
 
     /**
-     * Scoring formula:
-     * Start at 10.0
-     * -2.0 per CRITICAL issue
-     * -0.5 per WARNING issue
-     * -0.1 per INFO issue
-     * Floor at 0.0
+     * Scoring formula: start at 10.0, deduct per issue.
+     * CRITICAL: -2.0 | WARNING: -0.5 | INFO: -0.1 | Floor at 0.0.
+     * Returns a 0.0–10.0 score.
      */
     private double computeQualityScore(List<AISuggestion> suggestions) {
         double score = 10.0;
@@ -238,28 +216,36 @@ public class AIService {
         return Math.max(0.0, Math.round(score * 100.0) / 100.0);
     }
 
-    // ── Mock Response (no API key) ─────────────────────────────────────────
+    // ── Helpers ────────────────────────────────────────────────────────────
 
-    private String getMockResponse() {
-        return """
-                [
-                  {
-                    "severity": "WARNING",
-                    "category": "BEST_PRACTICE",
-                    "suggestion": "Consider adding input validation to prevent potential security issues.",
-                    "codeSnippet": null,
-                    "lineStart": null,
-                    "lineEnd": null
-                  },
-                  {
-                    "severity": "INFO",
-                    "category": "STYLE",
-                    "suggestion": "Add Javadoc comments to public methods for better documentation.",
-                    "codeSnippet": null,
-                    "lineStart": null,
-                    "lineEnd": null
-                  }
-                ]
-                """;
+    /** Truncate very large code submissions to stay within model context limits. */
+    private String truncateCode(String code) {
+        if (code == null)
+            return "";
+        // GPT-4o context: 128k tokens; 100k chars ≈ ~25k tokens — safe limit
+        int limit = 100_000;
+        return code.length() > limit ? code.substring(0, limit) + "\n... [truncated]" : code;
+    }
+
+    /** Fallback suggestions when the API is unavailable or the key is blank. */
+    private List<AISuggestion> getMockSuggestions(CodeReview review) {
+        return List.of(
+                AISuggestion.builder()
+                        .review(review)
+                        .severity(AISuggestion.Severity.WARNING)
+                        .category(AISuggestion.Category.BEST_PRACTICE)
+                        .suggestion("Consider adding input validation to prevent potential security issues.")
+                        .build(),
+                AISuggestion.builder()
+                        .review(review)
+                        .severity(AISuggestion.Severity.INFO)
+                        .category(AISuggestion.Category.STYLE)
+                        .suggestion("Add Javadoc comments to public methods for better documentation.")
+                        .build());
+    }
+
+    /** Returns all suggestions for a review, ordered by highest severity first. */
+    public List<AISuggestion> getSuggestionsByReviewId(Long reviewId) {
+        return aiSuggestionRepository.findByReviewIdOrderBySeverity(reviewId);
     }
 }

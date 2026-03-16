@@ -64,7 +64,7 @@ function CodeEditor({
         })
 
         // AI suggestion highlights (colour by severity)
-        aiSuggestions.forEach((s) => {
+        aiSuggestions?.forEach((s) => {
             if (!s.lineStart) return
             const colours = {
                 CRITICAL: { bg: 'bg-red-500/15 border-l-2 border-red-500', glyph: '🔴' },

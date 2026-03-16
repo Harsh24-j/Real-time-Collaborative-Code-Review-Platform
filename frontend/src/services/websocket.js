@@ -1,4 +1,4 @@
-import SockJS from 'sockjs-client'
+import SockJS from 'sockjs-client/dist/sockjs.js'
 import { Client } from '@stomp/stompjs'
 
 /**
@@ -54,7 +54,6 @@ class WebSocketService {
             },
 
             onConnect: () => {
-                console.log('[WS] Connected')
                 this._onConnected?.()
             },
             onStompError: (frame) => {
@@ -62,10 +61,8 @@ class WebSocketService {
                 this._onError?.(frame)
             },
             onWebSocketClose: () => {
-                console.log('[WS] Connection closed')
             },
             onDisconnect: () => {
-                console.log('[WS] Disconnected')
             },
         })
 

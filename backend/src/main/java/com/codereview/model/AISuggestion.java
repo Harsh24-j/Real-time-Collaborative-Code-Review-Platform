@@ -45,6 +45,9 @@ public class AISuggestion {
     @Column(name = "code_snippet", columnDefinition = "TEXT")
     private String codeSnippet; // The problematic code excerpt
 
+    @Column(name = "fixed_code_snippet", columnDefinition = "TEXT")
+    private String fixedCodeSnippet; // The AI-suggested corrected code
+
     @Column(name = "line_start")
     private Integer lineStart;
 

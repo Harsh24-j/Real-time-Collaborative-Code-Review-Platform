@@ -135,6 +135,14 @@ public class ReviewController {
         return ResponseEntity.accepted().body("AI analysis started asynchronously");
     }
 
+    // ── GET /api/reviews/{id}/suggestions ─────────────────────────────────
+
+    @GetMapping("/{id}/suggestions")
+    @Operation(summary = "Get detailed AI suggestions for a review")
+    public ResponseEntity<List<com.codereview.model.AISuggestion>> getSuggestions(@PathVariable Long id) {
+        return ResponseEntity.ok(aiService.getSuggestionsByReviewId(id));
+    }
+
     // ── GET /api/reviews/recent ───────────────────────────────────────────
 
     @GetMapping("/recent")

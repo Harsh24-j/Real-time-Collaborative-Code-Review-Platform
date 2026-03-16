@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Sparkles, AlertTriangle, AlertCircle, Info, RefreshCw } from 'lucide-react'
+import { Sparkles, AlertTriangle, AlertCircle, Info, RefreshCw, Wand2 } from 'lucide-react'
 import { analyticsAPI } from '../../services/api'
 
 const SEVERITY_ICON = { CRITICAL: AlertTriangle, WARNING: AlertCircle, INFO: Info }
@@ -20,7 +20,7 @@ const CATEGORY_COLOUR = {
  * AISuggestionsPanel — loads and displays AI suggestions for a review.
  * Skills: JavaScript, Front-End Web Development
  */
-function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0 }) {
+function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0, suggestions = [], onApplyFix }) {
     const [metrics, setMetrics] = useState(null)
     const [loading, setLoading] = useState(true)
 
@@ -37,6 +37,11 @@ function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0 }) 
     }
 
     useEffect(() => { loadMetrics() }, [reviewId])
+
+    // Derive actual counts using fresh metrics if available, fallback to props
+    const displayCritical = metrics?.aiSeverityDistribution?.CRITICAL ?? critical ?? 0
+    const displayWarnings = metrics?.aiSeverityDistribution?.WARNING ?? warnings ?? 0
+    const displayInfo = metrics?.aiSeverityDistribution?.INFO ?? info ?? 0
 
     // ── Summary row ──────────────────────────────────────────────────────
 
@@ -64,12 +69,12 @@ function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0 }) 
 
             {/* Severity summary */}
             <div className="grid grid-cols-3 gap-2">
-                <SummaryPill count={critical} label="Critical" colorClass="text-red-400" />
-                <SummaryPill count={warnings} label="Warnings" colorClass="text-amber-400" />
-                <SummaryPill count={info} label="Info" colorClass="text-blue-400" />
+                <SummaryPill count={displayCritical} label="Critical" colorClass="text-red-400" />
+                <SummaryPill count={displayWarnings} label="Warnings" colorClass="text-amber-400" />
+                <SummaryPill count={displayInfo} label="Info" colorClass="text-blue-400" />
             </div>
 
-            {(critical === 0 && warnings === 0 && info === 0) && (
+            {(displayCritical === 0 && displayWarnings === 0 && displayInfo === 0) && (
                 <div className="flex flex-col items-center py-8 text-slate-500 text-sm">
                     <Sparkles className="w-10 h-10 mb-2 text-emerald-500 opacity-70" />
                     <p className="font-medium text-emerald-400">No issues detected!</p>
@@ -147,6 +152,53 @@ function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0 }) 
                 <p className="text-xs text-slate-500 text-center py-4">
                     Metrics unavailable — analysis may still be running
                 </p>
+            )}
+
+            {/* Detailed Suggestions List */}
+            {suggestions?.length > 0 && (
+                <div className="mt-8 space-y-4 border-t border-slate-800 pt-6">
+                    <p className="text-sm font-semibold text-slate-200 flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-emerald-400" />
+                        Detailed Findings
+                    </p>
+                    {suggestions.map((suggestion) => {
+                        const Icon = SEVERITY_ICON[suggestion.severity] || Info
+                        const severityClass = SEVERITY_CLASS[suggestion.severity] || ''
+                        const categoryClass = CATEGORY_COLOUR[suggestion.category] || 'text-slate-400'
+
+                        return (
+                            <div key={suggestion.id} className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+                                <div className="flex items-start justify-between gap-2">
+                                    <div className="flex items-center gap-2">
+                                        <div className={`p-1.5 rounded-md bg-slate-800 ${severityClass}`}>
+                                            <Icon className="w-4 h-4" />
+                                        </div>
+                                        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-800 ${categoryClass}`}>
+                                            {suggestion.category.replace('_', ' ')}
+                                        </span>
+                                    </div>
+                                    <span className="text-xs font-mono text-slate-500">
+                                        {suggestion.lineStart ? `Line ${suggestion.lineStart}` : 'Global'}
+                                    </span>
+                                </div>
+                                
+                                <p className="text-sm text-slate-300 leading-relaxed">
+                                    {suggestion.suggestion}
+                                </p>
+
+                                {suggestion.fixedCodeSnippet && (
+                                    <button 
+                                        onClick={() => onApplyFix(suggestion)}
+                                        className="w-full mt-2 btn btn-sm bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/30 transition-all flex items-center justify-center gap-2"
+                                    >
+                                        <Wand2 className="w-3.5 h-3.5" />
+                                        Auto-Fix Issue
+                                    </button>
+                                )}
+                            </div>
+                        )
+                    })}
+                </div>
             )}
 
             <p className="text-[10px] text-slate-600 text-center">

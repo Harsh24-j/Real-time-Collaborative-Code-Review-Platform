@@ -11,6 +11,7 @@ import { useWebSocket } from '../../hooks/useWebSocket'
 import CodeEditor from './CodeEditor'
 import CommentPanel from './CommentPanel'
 import AISuggestionsPanel from './AISuggestionsPanel'
+import BackgroundWrapper from '../common/BackgroundWrapper'
 
 /**
  * ReviewDetail — full-screen review page with real-time WebSocket collaboration.
@@ -36,12 +37,16 @@ function ReviewDetail() {
     const loadReview = useCallback(async () => {
         try {
             setLoading(true)
-            const [rev, cmts] = await Promise.all([
+            const [rev, cmts, suggestions] = await Promise.all([
                 reviewAPI.getById(id),
                 reviewAPI.getComments(id),
+                reviewAPI.getAiSuggestions(id)
+                    .then(res => Array.isArray(res) ? res : [])
+                    .catch(() => []) // Fallback to empty array on error
             ])
             setReview(rev)
             setComments(cmts)
+            setAiSuggestions(suggestions)
         } catch {
             toast.error('Failed to load review')
             navigate('/reviews')
@@ -122,6 +127,45 @@ function ReviewDetail() {
         }
     }, [id])
 
+    // Autocorrect Code Splice
+    const applyAiFix = useCallback(async (suggestion) => {
+        if (!suggestion.fixedCodeSnippet || !suggestion.lineStart || !suggestion.lineEnd) {
+            toast.error('This suggestion does not contain a verifiable code fix.')
+            return
+        }
+
+        const lines = review.codeContent.split('\n')
+        
+        // Split array: [Before Fix], [Fix], [After Fix]
+        // lineStart and lineEnd are 1-based indices
+        const before = lines.slice(0, suggestion.lineStart - 1)
+        const after = lines.slice(suggestion.lineEnd)
+        
+        const newCode = [...before, suggestion.fixedCodeSnippet, ...after].join('\n')
+
+        try {
+            // Optimistic local UI update
+            setReview(prev => ({ ...prev, codeContent: newCode }))
+            
+            // Persist the fixed code to the backend
+            await reviewAPI.update(id, {
+                title: review.title,
+                description: review.description,
+                language: review.language,
+                codeContent: newCode
+            })
+            toast.success('AI fix applied successfully! ✨')
+            
+            // Re-fetch suggestions since lines might have shifted
+            const updatedSuggestions = await reviewAPI.getAiSuggestions(id)
+            setAiSuggestions(Array.isArray(updatedSuggestions) ? updatedSuggestions : [])
+        } catch (error) {
+            toast.error('Failed to save code fix.')
+            // Revert optimisitic update on failure
+            loadReview()
+        }
+    }, [id, review, loadReview])
+
     // ── Status helpers ─────────────────────────────────────────────────────
 
     const STATUS_BADGE = {
@@ -143,15 +187,15 @@ function ReviewDetail() {
     }
     if (!review) return null
 
-    const aiSuggestionsFromReview = aiSuggestions  // from separate API call if needed
     const unresolvedCount = comments.filter((c) => !c.isResolved).length
 
     return (
-        <div className="h-[calc(100vh-80px)] flex flex-col -mx-4 -mt-8">
+        <BackgroundWrapper variant="darkTech">
+            <div className="h-[calc(100vh-80px)] flex flex-col -mx-4 -mt-8 relative z-10">
 
             {/* ── Header ─────────────────────────────────────────────────────── */}
             <header className="flex items-start justify-between gap-4
-                         bg-slate-900 border-b border-slate-800 px-6 py-4 flex-shrink-0">
+                         bg-slate-950/60 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex-shrink-0">
                 <div className="flex items-start gap-4 min-w-0">
                     <button onClick={() => navigate('/reviews')} className="btn btn-secondary btn-sm mt-1">
                         <ArrowLeft className="w-4 h-4" />
@@ -230,23 +274,24 @@ function ReviewDetail() {
             <div className="flex flex-1 overflow-hidden">
 
                 {/* Code Editor */}
-                <div className="flex-1 bg-slate-950 overflow-hidden">
+                <div className="flex-1 bg-slate-950/40 backdrop-blur-md overflow-hidden">
                     <CodeEditor
                         code={review.codeContent}
                         language={review.language}
-                        readOnly
+                        readOnly={false} // Allow editing so fixes show up correctly if typing
+                        onCodeChange={(newCode) => setReview(prev => ({ ...prev, codeContent: newCode }))}
                         comments={comments}
-                        aiSuggestions={aiSuggestionsFromReview}
+                        aiSuggestions={aiSuggestions}
                         collaboratorCursors={cursors}
                         onLineClick={setSelectedLine}
                     />
                 </div>
 
                 {/* Right panel */}
-                <aside className="w-96 flex flex-col bg-slate-900 border-l border-slate-800 flex-shrink-0">
+                <aside className="w-96 flex flex-col bg-slate-950/60 backdrop-blur-xl border-l border-white/10 flex-shrink-0 shadow-2xl">
 
                     {/* Tabs */}
-                    <div className="flex border-b border-slate-800 flex-shrink-0">
+                    <div className="flex border-b border-white/10 flex-shrink-0">
                         <button
                             onClick={() => setActiveTab('comments')}
                             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium
@@ -293,12 +338,15 @@ function ReviewDetail() {
                                 critical={review.criticalIssues}
                                 warnings={review.warningIssues}
                                 info={review.infoIssues}
+                                suggestions={aiSuggestions}
+                                onApplyFix={applyAiFix}
                             />
                         )}
                     </div>
                 </aside>
             </div>
-        </div>
+            </div>
+        </BackgroundWrapper>
     )
 }
 

@@ -4,6 +4,9 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [react()],
+    optimizeDeps: {
+        include: ['sockjs-client', '@stomp/stompjs'],
+    },
     server: {
         port: 5173,
         proxy: {
@@ -30,5 +33,10 @@ export default defineConfig({
                 }
             }
         }
-    }
+    },
+    test: {
+        globals: true,
+        environment: 'jsdom',
+        setupFiles: './src/test/setup.js',
+    },
 })

@@ -1,7 +1,7 @@
 package com.codereview.config;
 
 import com.codereview.util.JwtAuthFilter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -38,11 +37,22 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity // Enables @PreAuthorize / @PostAuthorize
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final UserDetailsService userDetailsService;
+    private final PasswordEncoder passwordEncoder;
+
+    // @Lazy on JwtAuthFilter breaks the remaining cycle leg:
+    // JwtAuthFilter → UserService → PasswordEncoder (now in PasswordConfig, no
+    // cycle)
+    public SecurityConfig(@Lazy JwtAuthFilter jwtAuthFilter,
+            UserDetailsService userDetailsService,
+            PasswordEncoder passwordEncoder) {
+        this.jwtAuthFilter = jwtAuthFilter;
+        this.userDetailsService = userDetailsService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Value("${app.cors.allowed-origins}")
     private String allowedOriginsRaw;
@@ -80,22 +90,13 @@ public class SecurityConfig {
     }
 
     /**
-     * BCrypt password encoder — strength 12.
-     * Skill: Secure Coding
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
-    }
-
-    /**
      * DAO-based authentication provider wired to our UserDetailsService + BCrypt.
      */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder());
+        provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 

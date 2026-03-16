@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Code Review Platform - WebSocket Test">
+      <stringProp name="TestPlan.comments">Requires WebSocket Samplers Plugin</stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="WS Users">
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController">
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+      </ThreadGroup>
+      <hashTree>
+        <!-- Placeholders for WS Samplers which are plugins and might not render well in pure XML without plugin installed -->
+        <DebugSampler guiclass="TestBeanGui" testclass="DebugSampler" testname="WebSocket Scenario (Needs Plugin)" enabled="true"/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

@@ -1,5 +1,6 @@
 package com.codereview;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -12,11 +13,12 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @SpringBootApplication
 @EnableJpaAuditing  // Enable automatic timestamp management
 @EnableAsync        // Enable async processing
+@Slf4j
 public class CodeReviewApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CodeReviewApplication.class, args);
-        System.out.println("✅ Code Review Platform Started Successfully!");
-        System.out.println("📚 Swagger UI: http://localhost:8080/swagger-ui.html");
+        log.info("✅ Code Review Platform Started Successfully!");
+        log.info("📚 Swagger UI: http://localhost:8080/swagger-ui.html");
     }
 }

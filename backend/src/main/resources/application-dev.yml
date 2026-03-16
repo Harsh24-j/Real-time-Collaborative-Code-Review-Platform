@@ -1,0 +1,27 @@
+spring:
+  # ── PostgreSQL dev credentials ──────────────────
+  datasource:
+    url: jdbc:postgresql://localhost:5432/codereview
+    username: postgres
+    password: "CHANGE_ME"
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  # ── Disable Redis beans (no local Redis needed in dev) ──────────────
+  data:
+    redis:
+      enabled: false
+
+  # ── Spring AI: OpenAI key for dev ────────────────────────────────────
+  ai:
+    openai:
+      api-key: "YOUR_OPENAI_API_KEY"
+
+# ── Logging verbosity for dev ────────────────────
+logging:
+  level:
+    com.codereview: DEBUG
+    org.springframework.security: DEBUG

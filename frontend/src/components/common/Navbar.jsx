@@ -36,8 +36,8 @@ function Navbar() {
         to === '/' ? pathname === '/' : pathname.startsWith(to)
 
     return (
-        <nav className="sticky top-0 z-50 bg-slate-900/80 backdrop-blur-md
-                    border-b border-slate-800 shadow-lg shadow-black/20">
+        <nav className="sticky top-0 z-50 bg-slate-950/50 backdrop-blur-xl
+                    border-b border-white/10 shadow-lg shadow-black/40">
             <div className="container mx-auto px-4 max-w-7xl">
                 <div className="flex items-center justify-between h-16">
 

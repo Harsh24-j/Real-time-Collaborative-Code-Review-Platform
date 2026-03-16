@@ -6,6 +6,7 @@ import {
     Clock, CheckCircle, XCircle, RefreshCw, ChevronRight,
 } from 'lucide-react'
 import { reviewAPI } from '../../services/api'
+import BackgroundWrapper from '../common/BackgroundWrapper'
 
 const STATUS_BADGE = {
     OPEN: 'badge badge-blue',
@@ -75,7 +76,8 @@ function ReviewList() {
     }
 
     return (
-        <div className="animate-fade-in">
+        <BackgroundWrapper variant="code2">
+            <div className="animate-fade-in relative z-10 p-4">
 
             {/* ── Header ─────────────────────────────────────────────────────── */}
             <div className="flex items-center justify-between mb-8">
@@ -96,7 +98,7 @@ function ReviewList() {
             </div>
 
             {/* ── Filters ────────────────────────────────────────────────────── */}
-            <div className="card-sm mb-6 flex gap-3">
+            <div className="glass-card-dark p-4 mb-6 flex gap-3 shadow-lg">
                 <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                     <input
@@ -123,8 +125,8 @@ function ReviewList() {
             {loading ? (
                 <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                     {Array.from({ length: 6 }).map((_, i) => (
-                        <div key={i} className="card animate-pulse space-y-3">
-                            <div className="skeleton h-5 w-3/4 rounded" />
+                        <div key={i} className="glass-card-dark p-6 animate-pulse space-y-3">
+                            <div className="skeleton h-5 w-3/4 rounded bg-white/10" />
                             <div className="skeleton h-4 w-full rounded" />
                             <div className="skeleton h-4 w-2/3 rounded" />
                             <div className="skeleton h-3 w-1/2 rounded mt-4" />
@@ -132,8 +134,8 @@ function ReviewList() {
                     ))}
                 </div>
             ) : filtered.length === 0 ? (
-                <div className="card text-center py-16">
-                    <Code2 className="w-14 h-14 mx-auto text-slate-600 mb-4" />
+                <div className="glass-card-dark p-12 text-center py-16 shadow-xl">
+                    <Code2 className="w-14 h-14 mx-auto text-indigo-400 mb-4 opacity-50" />
                     <h3 className="text-lg font-semibold text-slate-200 mb-1">No reviews found</h3>
                     <p className="text-slate-400 text-sm mb-6">
                         {searchTerm ? 'Try a different search term' : 'Be the first to submit a code review'}
@@ -149,7 +151,8 @@ function ReviewList() {
                     ))}
                 </div>
             )}
-        </div>
+            </div>
+        </BackgroundWrapper>
     )
 }
 
@@ -162,7 +165,7 @@ function ReviewCard({ review }) {
     return (
         <div
             onClick={() => navigate(`/reviews/${review.id}`)}
-            className="card card-hover group animate-fade-in"
+            className="glass-card-dark p-6 cursor-pointer hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/10 transition-all duration-300 group animate-fade-in"
         >
             {/* Title + status */}
             <div className="flex items-start justify-between gap-3 mb-3">
