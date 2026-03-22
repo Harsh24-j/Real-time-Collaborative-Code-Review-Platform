@@ -67,7 +67,7 @@ function LoginForm() {
                         <div className="w-16 h-16 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-2xl mx-auto flex items-center justify-center mb-6 shadow-lg shadow-purple-500/30 transform transition-transform hover:scale-110 hover:rotate-3 duration-300">
                             <Code2 size={32} className="text-white" />
                         </div>
-                        <h2 className="text-3xl font-bold text-white mb-2 tracking-tight h-10">
+                        <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">
                             <Typewriter text={`${greeting}, Developer.`} speed={70} delay={300} />
                         </h2>
                         <p className="text-slate-400">

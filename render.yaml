@@ -1,0 +1,61 @@
+services:
+  # ── Backend Spring Boot Service ────────────────────────────────────────
+  - type: web
+    name: codereview-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    region: oregon
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: codereview-db
+          property: connectionString
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: codereview-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: codereview-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: PORT
+        value: 8080
+      - key: ALLOWED_ORIGINS
+        value: https://codereview-frontend.onrender.com
+
+  # ── Frontend React Static Site ─────────────────────────────────────────
+  - type: web
+    name: codereview-frontend
+    env: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./frontend/dist
+    rootDir: frontend
+    pullRequestPreviewsEnabled: true
+    region: oregon
+    plan: free
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        value: https://codereview-backend.onrender.com
+      - key: VITE_WS_URL
+        value: wss://codereview-backend.onrender.com/ws-review
+
+databases:
+  # ── PostgreSQL Database ────────────────────────────────────────────────
+  - name: codereview-db
+    region: oregon
+    plan: free
+    databaseName: codereview
+    user: codereview_user
