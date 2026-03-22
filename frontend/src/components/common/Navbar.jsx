@@ -49,7 +49,7 @@ function Navbar() {
                             <Code2 className="w-4 h-4 text-blue-400" />
                         </div>
                         <span className="font-bold text-slate-100 tracking-tight hidden sm:block">
-                            Code<span className="text-blue-400">Review</span>
+                            Zyn<span className="text-blue-400">cora</span>
                         </span>
                     </Link>
 

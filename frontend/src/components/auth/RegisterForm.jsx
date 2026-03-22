@@ -71,7 +71,7 @@ function RegisterForm() {
                             <Typewriter text="Initializing profile..." speed={60} delay={400} />
                         </h2>
                         <p className="text-slate-400 animate-fade-in animation-delay-2000">
-                            Join the CodeReview Platform
+                            Join Zyncora
                         </p>
                     </div>
 
