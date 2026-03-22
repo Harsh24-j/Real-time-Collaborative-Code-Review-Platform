@@ -37,7 +37,7 @@ services:
     name: codereview-frontend
     env: static
     buildCommand: npm ci && npm run build
-    staticPublishPath: ./frontend/dist
+    staticPublishPath: dist
     rootDir: frontend
     pullRequestPreviewsEnabled: true
     routes:
