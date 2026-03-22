@@ -40,7 +40,6 @@ services:
     staticPublishPath: ./frontend/dist
     rootDir: frontend
     pullRequestPreviewsEnabled: true
-    region: oregon
     plan: free
     routes:
       - type: rewrite
