@@ -14,7 +14,7 @@ services:
       - key: DATABASE_URL
         fromDatabase:
           name: codereview-db
-          property: connectionString
+          property: jdbcUrl
       - key: DATABASE_USERNAME
         fromDatabase:
           name: codereview-db
@@ -30,7 +30,7 @@ services:
       - key: PORT
         value: 8080
       - key: ALLOWED_ORIGINS
-        value: https://codereview-frontend.onrender.com
+        value: https://codereview-frontend-ttjg.onrender.com
 
   # ── Frontend React Static Site ─────────────────────────────────────────
   - type: web
@@ -46,9 +46,9 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_URL
-        value: https://codereview-backend.onrender.com
+        value: https://codereview-backend-i12l.onrender.com
       - key: VITE_WS_URL
-        value: wss://codereview-backend.onrender.com/ws-review
+        value: wss://codereview-backend-i12l.onrender.com/ws-review
 
 databases:
   # ── PostgreSQL Database ────────────────────────────────────────────────
