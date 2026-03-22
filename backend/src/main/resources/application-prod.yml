@@ -4,7 +4,7 @@ spring:
   # We use JDBC_DATABASE_URL which is manually set in Render env with jdbc:postgresql:// prefix
   datasource:
     # Hardcoding the exact internal host of the new database to prevent any Env Var parsing issues
-    url: jdbc:postgresql://dpg-d6vohevfte5s73e0ad6g-a/codereview
+    url: jdbc:postgresql://dpg-d6vohevfte5s73e0ad6g-a/codereview_hybj
     username: ${DATABASE_USERNAME:codereview_user}
     password: ${DATABASE_PASSWORD:}
     driver-class-name: org.postgresql.Driver
