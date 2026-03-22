@@ -68,7 +68,7 @@ function LoginForm() {
                             <Code2 size={32} className="text-white" />
                         </div>
                         <h2 className="text-3xl font-bold text-white mb-2 tracking-tight">
-                            <Typewriter text={`${greeting}, Developer.`} speed={70} delay={300} />
+                            <Typewriter text={`${greeting}, Developer`} speed={70} delay={300} />
                         </h2>
                         <p className="text-slate-400">
                             Sign in to continue your code reviews
