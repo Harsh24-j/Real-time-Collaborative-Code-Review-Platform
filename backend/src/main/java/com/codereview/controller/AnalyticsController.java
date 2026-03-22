@@ -1,4 +1,4 @@
-﻿package com.codereview.controller;
+package com.codereview.controller;
 
 import com.codereview.service.AnalyticsService;
 import io.swagger.v3.oas.annotations.Operation;

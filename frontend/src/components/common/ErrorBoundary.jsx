@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 
 /**
  * ErrorBoundary â€” catches any React render/lifecycle crash and renders a

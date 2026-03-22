@@ -1,4 +1,4 @@
-﻿package com.codereview.util;
+package com.codereview.util;
 
 import org.springframework.util.StringUtils;
 import org.owasp.encoder.Encode;

@@ -1,4 +1,4 @@
-﻿package com.codereview.util;
+package com.codereview.util;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

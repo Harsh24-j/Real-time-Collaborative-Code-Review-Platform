@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Sparkles, AlertTriangle, AlertCircle, Info, RefreshCw, Wand2 } from 'lucide-react'
 import { analyticsAPI } from '../../services/api'
 

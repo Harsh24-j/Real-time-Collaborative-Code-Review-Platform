@@ -1,4 +1,4 @@
-﻿/**
+/**
  * constants.js â€” app-wide constants for status, languages, badges, etc.
  * Skills: JavaScript
  */

@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { UserPlus, Eye, EyeOff, Code2, CheckCircle, XCircle } from 'lucide-react'

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Trophy, Medal, Star, Award, TrendingUp, Crown } from 'lucide-react'
 import { userAPI } from '../../services/api'
 import { useAuthStore } from '../../hooks/useAuthStore'

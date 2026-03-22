@@ -1,4 +1,4 @@
-﻿package com.codereview.dto;
+package com.codereview.dto;
 
 /**
  * AiSuggestionDto â€” typed record used as BeanOutputConverter target for Spring

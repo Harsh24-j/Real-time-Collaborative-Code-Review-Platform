@@ -1,4 +1,4 @@
-﻿package com.codereview.util;
+package com.codereview.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

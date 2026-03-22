@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react'
+import React, { useState } from 'react'
 import { MessageSquare, CheckCircle, Bot, Send, X } from 'lucide-react'
 
 /**

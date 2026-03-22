@@ -1,4 +1,4 @@
-﻿package com.codereview.config;
+package com.codereview.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

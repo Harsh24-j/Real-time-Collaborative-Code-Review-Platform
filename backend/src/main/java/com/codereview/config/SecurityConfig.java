@@ -1,4 +1,4 @@
-﻿package com.codereview.config;
+package com.codereview.config;
 
 import com.codereview.util.JwtAuthFilter;
 import org.springframework.context.annotation.Lazy;

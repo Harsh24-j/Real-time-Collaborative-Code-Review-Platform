@@ -1,4 +1,4 @@
-﻿import React, { useState, useRef, useEffect, useCallback } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import Editor from '@monaco-editor/react'
 import { MessageSquare, Sparkles, ChevronDown } from 'lucide-react'
 

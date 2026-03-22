@@ -1,4 +1,4 @@
-﻿# â”€â”€ Production Profile â€” used when SPRING_PROFILES_ACTIVE=prod â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+# â”€â”€ Production Profile â€” used when SPRING_PROFILES_ACTIVE=prod â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 spring:
   # PostgreSQL â€” Render provides DATABASE_URL as postgres:// (not jdbc:)
   # We use JDBC_DATABASE_URL which is manually set in Render env with jdbc:postgresql:// prefix

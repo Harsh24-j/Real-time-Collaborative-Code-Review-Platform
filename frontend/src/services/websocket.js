@@ -1,4 +1,4 @@
-﻿import SockJS from 'sockjs-client/dist/sockjs.js'
+import SockJS from 'sockjs-client/dist/sockjs.js'
 import { Client } from '@stomp/stompjs'
 
 /**

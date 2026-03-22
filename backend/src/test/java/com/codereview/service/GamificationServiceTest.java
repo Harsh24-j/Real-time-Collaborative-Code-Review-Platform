@@ -1,4 +1,4 @@
-﻿package com.codereview.service;
+package com.codereview.service;
 
 import com.codereview.model.Badge;
 import com.codereview.model.User;

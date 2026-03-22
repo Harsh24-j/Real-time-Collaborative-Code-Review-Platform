@@ -1,4 +1,4 @@
-﻿/**
+/**
  * formatters.js â€” date/time formatting and display helpers.
  * Skills: JavaScript
  */

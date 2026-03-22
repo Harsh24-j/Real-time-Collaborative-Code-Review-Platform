@@ -1,4 +1,4 @@
-﻿package com.codereview.repository;
+package com.codereview.repository;
 
 import com.codereview.model.User;
 import org.junit.jupiter.api.BeforeEach;

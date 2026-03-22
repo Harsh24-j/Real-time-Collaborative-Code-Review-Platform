@@ -1,4 +1,4 @@
-﻿package com.codereview.model;
+package com.codereview.model;
 
 import jakarta.persistence.*;
 import lombok.*;

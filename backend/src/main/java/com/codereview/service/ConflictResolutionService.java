@@ -1,4 +1,4 @@
-﻿package com.codereview.service;
+package com.codereview.service;
 
 import com.codereview.model.AISuggestion;
 import com.codereview.model.Comment;

@@ -1,4 +1,4 @@
-﻿package com.codereview.exception;
+package com.codereview.exception;
 
 import com.codereview.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;

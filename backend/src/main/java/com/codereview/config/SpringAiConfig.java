@@ -1,4 +1,4 @@
-﻿package com.codereview.config;
+package com.codereview.config;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.context.annotation.Bean;

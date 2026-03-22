@@ -1,4 +1,4 @@
-﻿package com.codereview.repository;
+package com.codereview.repository;
 
 import com.codereview.model.AISuggestion;
 import org.springframework.data.jpa.repository.JpaRepository;
