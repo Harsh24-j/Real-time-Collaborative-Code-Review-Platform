@@ -1,0 +1,96 @@
+# ── Production Profile — used when SPRING_PROFILES_ACTIVE=prod ───────────
+spring:
+  # PostgreSQL — Render provides DATABASE_URL as postgres:// (not jdbc:)
+  # We use JDBC_DATABASE_URL which is manually set in Render env with jdbc:postgresql:// prefix
+  datasource:
+    # Hardcoding the exact internal host of the new database to prevent any Env Var parsing issues
+    url: jdbc:postgresql://dpg-d6vohevfte5s73e0ad6g-a/codereview
+    username: ${DATABASE_USERNAME:codereview_user}
+    password: ${DATABASE_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5       # Free tier has connection limits
+      minimum-idle: 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+
+  # Redis — disabled on free tier (no Redis in Render free plan)
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:}
+      chat:
+        options:
+          model: gpt-4o
+          temperature: 0.3
+          max-tokens: 1500
+
+server:
+  port: ${PORT:8080}
+  compression:
+    enabled: true
+    mime-types: application/json,text/html,text/plain
+
+# App-level properties
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: 86400000
+    issuer: code-review-platform
+
+  openai:
+    api-key: ${OPENAI_API_KEY:}
+    model: gpt-4o
+    max-tokens: 1500
+    temperature: 0.3
+
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:https://codereview-frontend.onrender.com}
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
+    allowed-headers: "*"
+    exposed-headers: Authorization
+    allow-credentials: true
+    max-age: 3600
+
+# Quieter logging in production
+logging:
+  level:
+    root: WARN
+    com.codereview: INFO
+    org.springframework.web: WARN
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%level] %logger{36} - %msg%n"
+
+# Swagger still accessible on prod for demo purposes
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
