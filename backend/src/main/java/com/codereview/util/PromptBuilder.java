@@ -1,9 +1,9 @@
-package com.codereview.util;
+﻿package com.codereview.util;
 
 import com.codereview.model.CodeReview;
 
 /**
- * PromptBuilder — Centralised AI prompt templates for the APIService.
+ * PromptBuilder â€” Centralised AI prompt templates for the APIService.
  * Skills: Server Side, RESTful API
  */
 public final class PromptBuilder {
@@ -11,7 +11,7 @@ public final class PromptBuilder {
     private PromptBuilder() {
     }
 
-    // ── Code Review Analysis Prompt ───────────────────────────────────────
+    // â”€â”€ Code Review Analysis Prompt â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public static String buildCodeReviewPrompt(CodeReview review) {
         return String.format("""
@@ -26,7 +26,7 @@ public final class PromptBuilder {
                   lineStart  : integer line number (or null)
                   lineEnd    : integer line number (or null)
 
-                Return ONLY the JSON array — no markdown, no extra text.
+                Return ONLY the JSON array â€” no markdown, no extra text.
 
                 Code:
                 ```%s
@@ -38,7 +38,7 @@ public final class PromptBuilder {
                 review.getCodeContent());
     }
 
-    // ── Conflict Resolution Prompt ────────────────────────────────────────
+    // â”€â”€ Conflict Resolution Prompt â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public static String buildConflictPrompt(int lineNumber,
             String[] reviewerComments) {
@@ -55,7 +55,7 @@ public final class PromptBuilder {
         return sb.toString();
     }
 
-    // ── Summary Prompt ────────────────────────────────────────────────────
+    // â”€â”€ Summary Prompt â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public static String buildSummaryPrompt(String codeContent, String language) {
         return String.format("""
@@ -70,7 +70,7 @@ public final class PromptBuilder {
                 language, language, codeContent);
     }
 
-    // ── Quality Score Explanation ─────────────────────────────────────────
+    // â”€â”€ Quality Score Explanation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public static String buildScoreExplanationPrompt(double score,
             int critical,

@@ -1,8 +1,8 @@
-import { create } from 'zustand'
+﻿import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 /**
- * useAuthStore — Zustand store for authentication state (persisted to localStorage).
+ * useAuthStore â€” Zustand store for authentication state (persisted to localStorage).
  * Skills: JavaScript, Front-End Web Development
  */
 export const useAuthStore = create(
@@ -12,13 +12,13 @@ export const useAuthStore = create(
             token: null,
             isAuthenticated: false,
 
-            /** Called after a successful login — stores token + user object. */
+            /** Called after a successful login â€” stores token + user object. */
             login: (token, user) => {
                 localStorage.setItem('token', token)
                 set({ token, user, isAuthenticated: true })
             },
 
-            /** Called on logout or 401 — clears all auth state. */
+            /** Called on logout or 401 â€” clears all auth state. */
             logout: () => {
                 localStorage.removeItem('token')
                 set({ token: null, user: null, isAuthenticated: false })

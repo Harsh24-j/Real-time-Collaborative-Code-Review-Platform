@@ -1,4 +1,4 @@
-package com.codereview.config;
+﻿package com.codereview.config;
 
 import com.codereview.util.JwtAuthFilter;
 import org.springframework.context.annotation.Lazy;
@@ -44,7 +44,7 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
 
     // @Lazy on JwtAuthFilter breaks the remaining cycle leg:
-    // JwtAuthFilter → UserService → PasswordEncoder (now in PasswordConfig, no
+    // JwtAuthFilter â†’ UserService â†’ PasswordEncoder (now in PasswordConfig, no
     // cycle)
     public SecurityConfig(@Lazy JwtAuthFilter jwtAuthFilter,
             UserDetailsService userDetailsService,
@@ -57,7 +57,7 @@ public class SecurityConfig {
     @Value("${app.cors.allowed-origins}")
     private String allowedOriginsRaw;
 
-    // ── Public paths: no JWT required ─────────────────────────────────────
+    // â”€â”€ Public paths: no JWT required â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private static final String[] PUBLIC_URLS = {
             "/api/auth/**", // login / register
             "/swagger-ui/**", // Swagger UI assets
@@ -110,7 +110,7 @@ public class SecurityConfig {
     }
 
     /**
-     * CORS configuration — origins driven by app.cors.allowed-origins in
+     * CORS configuration â€” origins driven by app.cors.allowed-origins in
      * application.yml.
      * Skill: Secure Coding
      */

@@ -1,4 +1,4 @@
-package com.codereview.util;
+﻿package com.codereview.util;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * JwtUtil — token generation, validation, and claims extraction.
+ * JwtUtil â€” token generation, validation, and claims extraction.
  * Skills: Secure Coding, Spring Boot
  */
 @Component
@@ -31,7 +31,7 @@ public class JwtUtil {
     @Value("${app.jwt.issuer:code-review-platform}")
     private String issuer;
 
-    // ── Token Generation ──────────────────────────────────────────────────
+    // â”€â”€ Token Generation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -48,7 +48,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    // ── Validation ────────────────────────────────────────────────────────
+    // â”€â”€ Validation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
         try {
@@ -64,7 +64,7 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    // ── Claims Extraction ─────────────────────────────────────────────────
+    // â”€â”€ Claims Extraction â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -86,7 +86,7 @@ public class JwtUtil {
                 .getPayload();
     }
 
-    // ── Signing Key ───────────────────────────────────────────────────────
+    // â”€â”€ Signing Key â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private SecretKey getSigningKey() {
         byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);

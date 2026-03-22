@@ -1,4 +1,4 @@
-# ========================================
+﻿# ========================================
 # SPRING BOOT APPLICATION CONFIGURATION
 # Skills: Spring Boot, Data Persistence, Secure Coding
 # ========================================
@@ -7,7 +7,7 @@ spring:
   application:
     name: code-review-platform
 
-  # ── Spring AI — OpenAI ChatClient auto-configuration ────────────────────
+  # â”€â”€ Spring AI â€” OpenAI ChatClient auto-configuration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   ai:
     openai:
       api-key: ${OPENAI_API_KEY:}
@@ -95,7 +95,7 @@ app:
     expiration: 86400000  # 24 hours in milliseconds
     issuer: code-review-platform
   
-  # AI Integration — legacy custom properties (kept for reference)
+  # AI Integration â€” legacy custom properties (kept for reference)
   # Spring AI now reads from spring.ai.openai.* below
   openai:
     api-key: ${OPENAI_API_KEY:}

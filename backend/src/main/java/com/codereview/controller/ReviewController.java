@@ -1,4 +1,4 @@
-package com.codereview.controller;
+﻿package com.codereview.controller;
 
 import com.codereview.dto.*;
 import com.codereview.model.CodeReview;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ReviewController — full CRUD, status management, search, AI analysis trigger.
+ * ReviewController â€” full CRUD, status management, search, AI analysis trigger.
  * Skills: RESTful API, Spring Boot, Model View Controller
  */
 @RestController
@@ -33,7 +33,7 @@ public class ReviewController {
     private final CommentService commentService;
     private final AIService aiService;
 
-    // ── GET /api/reviews ──────────────────────────────────────────────────
+    // â”€â”€ GET /api/reviews â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping
     @Operation(summary = "List all reviews with pagination and optional search")
@@ -54,7 +54,7 @@ public class ReviewController {
         return ResponseEntity.ok(result);
     }
 
-    // ── GET /api/reviews/{id} ─────────────────────────────────────────────
+    // â”€â”€ GET /api/reviews/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a review by ID")
@@ -62,7 +62,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getReviewById(id));
     }
 
-    // ── POST /api/reviews ─────────────────────────────────────────────────
+    // â”€â”€ POST /api/reviews â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping
     @Operation(summary = "Create a new code review")
@@ -78,7 +78,7 @@ public class ReviewController {
         return ResponseEntity.status(HttpStatus.CREATED).body(review);
     }
 
-    // ── PUT /api/reviews/{id} ─────────────────────────────────────────────
+    // â”€â”€ PUT /api/reviews/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a review (creator only)")
@@ -91,7 +91,7 @@ public class ReviewController {
                 reviewService.updateReview(id, request, currentUser.getUsername()));
     }
 
-    // ── DELETE /api/reviews/{id} ──────────────────────────────────────────
+    // â”€â”€ DELETE /api/reviews/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a review (creator only)")
@@ -103,7 +103,7 @@ public class ReviewController {
         return ResponseEntity.noContent().build();
     }
 
-    // ── PATCH /api/reviews/{id}/status ────────────────────────────────────
+    // â”€â”€ PATCH /api/reviews/{id}/status â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PatchMapping("/{id}/status")
     @Operation(summary = "Update review status")
@@ -118,7 +118,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.updateReview(id, req, currentUser.getUsername()));
     }
 
-    // ── GET /api/reviews/{id}/comments ────────────────────────────────────
+    // â”€â”€ GET /api/reviews/{id}/comments â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/{id}/comments")
     @Operation(summary = "Get all comments for a review")
@@ -126,7 +126,7 @@ public class ReviewController {
         return ResponseEntity.ok(commentService.getCommentsByReview(id));
     }
 
-    // ── POST /api/reviews/{id}/analyze ───────────────────────────────────
+    // â”€â”€ POST /api/reviews/{id}/analyze â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/{id}/analyze")
     @Operation(summary = "Trigger AI re-analysis of a review")
@@ -135,7 +135,7 @@ public class ReviewController {
         return ResponseEntity.accepted().body("AI analysis started asynchronously");
     }
 
-    // ── GET /api/reviews/{id}/suggestions ─────────────────────────────────
+    // â”€â”€ GET /api/reviews/{id}/suggestions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/{id}/suggestions")
     @Operation(summary = "Get detailed AI suggestions for a review")
@@ -143,7 +143,7 @@ public class ReviewController {
         return ResponseEntity.ok(aiService.getSuggestionsByReviewId(id));
     }
 
-    // ── GET /api/reviews/recent ───────────────────────────────────────────
+    // â”€â”€ GET /api/reviews/recent â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/recent")
     @Operation(summary = "Get reviews created in the last N hours")

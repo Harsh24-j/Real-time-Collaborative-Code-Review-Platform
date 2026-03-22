@@ -1,4 +1,4 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.Data;
 public class RegisterRequest {
 
     @NotBlank(message = "Username is required")
-    @Size(min = 3, max = 50, message = "Username must be 3–50 characters")
+    @Size(min = 3, max = 50, message = "Username must be 3â€“50 characters")
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username may only contain letters, digits, and underscores")
     private String username;
 
@@ -21,11 +21,11 @@ public class RegisterRequest {
     private String email;
 
     @NotBlank(message = "Password is required")
-    @Size(min = 8, max = 100, message = "Password must be 8–100 characters")
+    @Size(min = 8, max = 100, message = "Password must be 8â€“100 characters")
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "Password must contain at least one uppercase letter, one lowercase letter, and one digit")
     private String password;
 
     @NotBlank(message = "Full name is required")
-    @Size(min = 2, max = 100, message = "Full name must be 2–100 characters")
+    @Size(min = 2, max = 100, message = "Full name must be 2â€“100 characters")
     private String fullName;
 }

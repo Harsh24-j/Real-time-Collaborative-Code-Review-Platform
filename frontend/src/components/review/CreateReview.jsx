@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { Code2, Sparkles, ArrowLeft, Upload } from 'lucide-react'
@@ -11,7 +11,7 @@ const LANGUAGES = [
 ]
 
 /**
- * CreateReview — submit new code for AI-powered review.
+ * CreateReview â€” submit new code for AI-powered review.
  * Skills: JavaScript, Front-End Web Development, Full-Stack Web Development
  */
 function CreateReview() {
@@ -41,7 +41,7 @@ function CreateReview() {
         setLoading(true)
         try {
             const review = await reviewAPI.create(form)
-            toast.success('Review created — AI analysis started!')
+            toast.success('Review created â€” AI analysis started!')
             navigate(`/reviews/${review.id}`)
         } catch (err) {
             toast.error(err.response?.data?.message || 'Failed to create review')
@@ -142,7 +142,7 @@ function CreateReview() {
                                 value={form.repositoryUrl}
                                 onChange={handleChange}
                                 className="input"
-                                placeholder="https://github.com/…"
+                                placeholder="https://github.com/â€¦"
                             />
                         </div>
                     </div>
@@ -166,7 +166,7 @@ function CreateReview() {
                         onChange={handleChange}
                         className={`input font-mono text-sm resize-none leading-relaxed ${overLimit ? 'input-error' : ''}`}
                         rows={24}
-                        placeholder={`// Paste your ${form.language} code here…`}
+                        placeholder={`// Paste your ${form.language} code hereâ€¦`}
                         required
                         spellCheck={false}
                     />
@@ -190,7 +190,7 @@ function CreateReview() {
                         className="btn btn-primary btn-lg"
                     >
                         {loading ? (
-                            <><span className="spinner" /> Submitting…</>
+                            <><span className="spinner" /> Submittingâ€¦</>
                         ) : (
                             <><Upload className="w-4 h-4" /> Submit for Review</>
                         )}

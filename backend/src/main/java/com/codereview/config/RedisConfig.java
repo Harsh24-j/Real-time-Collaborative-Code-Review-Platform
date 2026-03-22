@@ -1,4 +1,4 @@
-package com.codereview.config;
+﻿package com.codereview.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -16,7 +16,7 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * Redis Configuration — Caching & Pub/Sub
+ * Redis Configuration â€” Caching & Pub/Sub
  * Skills: Server Side, Cloud Deployment, Data Persistence
  *
  * Uses Lettuce (non-blocking, thread-safe) as the Redis driver.
@@ -37,7 +37,7 @@ public class RedisConfig {
     @Value("${spring.data.redis.password:}")
     private String redisPassword;
 
-    // ── Connection Factory ─────────────────────────────────────────────────
+    // â”€â”€ Connection Factory â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
@@ -48,7 +48,7 @@ public class RedisConfig {
         return new LettuceConnectionFactory(config);
     }
 
-    // ── Object Mapper with Java 8 Time support ─────────────────────────────
+    // â”€â”€ Object Mapper with Java 8 Time support â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Bean
     public ObjectMapper redisObjectMapper() {
@@ -58,12 +58,12 @@ public class RedisConfig {
         return mapper;
     }
 
-    // ── RedisTemplate<String, Object> ─────────────────────────────────────
+    // â”€â”€ RedisTemplate<String, Object> â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Primary template used throughout the application.
-     * Keys → plain UTF-8 strings
-     * Values → JSON via GenericJackson2JsonRedisSerializer
+     * Keys â†’ plain UTF-8 strings
+     * Values â†’ JSON via GenericJackson2JsonRedisSerializer
      */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(
@@ -85,7 +85,7 @@ public class RedisConfig {
         return template;
     }
 
-    // ── Pub/Sub Listener Container ─────────────────────────────────────────
+    // â”€â”€ Pub/Sub Listener Container â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Container for Redis Pub/Sub message listeners.

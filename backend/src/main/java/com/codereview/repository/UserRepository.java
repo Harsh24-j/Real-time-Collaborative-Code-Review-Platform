@@ -1,4 +1,4 @@
-package com.codereview.repository;
+﻿package com.codereview.repository;
 
 import com.codereview.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,7 +37,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Count active users
     long countByActiveTrue();
 
-    // Get leaderboard — top users by points
+    // Get leaderboard â€” top users by points
     @Query("SELECT u FROM User u WHERE u.active = true ORDER BY u.points DESC")
     List<User> findTopUsersByPoints();
 

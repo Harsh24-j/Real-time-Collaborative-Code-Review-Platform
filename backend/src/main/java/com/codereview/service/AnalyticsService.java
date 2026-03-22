@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.model.CodeReview;
 import com.codereview.repository.*;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 /**
- * AnalyticsService — dashboard stats, review metrics, user analytics.
+ * AnalyticsService â€” dashboard stats, review metrics, user analytics.
  * Skills: Server Side, Spring Boot, Data Persistence
  */
 @Service
@@ -26,7 +26,7 @@ public class AnalyticsService {
     private final AISuggestionRepository aiSuggestionRepository;
     private final ReviewActivityRepository activityRepository;
 
-    // ── Dashboard summary ─────────────────────────────────────────────────
+    // â”€â”€ Dashboard summary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public Map<String, Object> getDashboardStats() {
         Map<String, Object> stats = new LinkedHashMap<>();
@@ -55,7 +55,7 @@ public class AnalyticsService {
         return stats;
     }
 
-    // ── Review metrics ────────────────────────────────────────────────────
+    // â”€â”€ Review metrics â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public Map<String, Object> getReviewMetrics(Long reviewId) {
         Map<String, Object> metrics = new LinkedHashMap<>();
@@ -89,7 +89,7 @@ public class AnalyticsService {
         return metrics;
     }
 
-    // ── User analytics ────────────────────────────────────────────────────
+    // â”€â”€ User analytics â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public Map<String, Object> getUserAnalytics(Long userId) {
         Map<String, Object> analytics = new LinkedHashMap<>();
@@ -111,7 +111,7 @@ public class AnalyticsService {
         return analytics;
     }
 
-    // ── Trend analysis ────────────────────────────────────────────────────
+    // â”€â”€ Trend analysis â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public Map<String, Object> getTrends(int days) {
         Map<String, Object> trends = new LinkedHashMap<>();

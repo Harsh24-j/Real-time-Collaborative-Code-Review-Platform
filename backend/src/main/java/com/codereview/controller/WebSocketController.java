@@ -1,4 +1,4 @@
-package com.codereview.controller;
+﻿package com.codereview.controller;
 
 import com.codereview.dto.CommentRequest;
 import com.codereview.dto.CommentResponse;
@@ -16,11 +16,11 @@ import java.security.Principal;
 import java.util.Map;
 
 /**
- * WebSocketController — STOMP @MessageMapping handlers.
+ * WebSocketController â€” STOMP @MessageMapping handlers.
  * Skills: RESTful API (WebSocket), Server Side, Full-Stack Web Development
  *
  * Client flow:
- * 1. Connect: new SockJS('/ws-review') → Stomp.over(socket)
+ * 1. Connect: new SockJS('/ws-review') â†’ Stomp.over(socket)
  * 2. Subscribe: /topic/review/{id} (broadcast comments)
  * /topic/review/{id}/cursors (live cursors)
  * /user/queue/notifications (private notifications)
@@ -36,7 +36,7 @@ public class WebSocketController {
     private final CommentService commentService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    // ── /app/review/{id}/comment ──────────────────────────────────────────
+    // â”€â”€ /app/review/{id}/comment â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Receives a comment via WebSocket and broadcasts it to all review subscribers.
@@ -63,7 +63,7 @@ public class WebSocketController {
         log.debug("WS comment broadcast: reviewId={} by {}", reviewId, principal.getName());
     }
 
-    // ── /app/review/{id}/cursor ───────────────────────────────────────────
+    // â”€â”€ /app/review/{id}/cursor â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Broadcasts a user's cursor position to all other review collaborators.
@@ -83,7 +83,7 @@ public class WebSocketController {
                 "/topic/review/" + reviewId + "/cursors", cursorPayload);
     }
 
-    // ── /app/review/{id}/typing ───────────────────────────────────────────
+    // â”€â”€ /app/review/{id}/typing â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Broadcasts typing-indicator events.
@@ -103,10 +103,10 @@ public class WebSocketController {
                 "/topic/review/" + reviewId + "/typing", payload);
     }
 
-    // ── /app/review/{id}/presence ─────────────────────────────────────────
+    // â”€â”€ /app/review/{id}/presence â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
-     * User joins a review session — broadcasts their presence to collaborators.
+     * User joins a review session â€” broadcasts their presence to collaborators.
      * Payload: { "status": "JOINED" | "LEFT" }
      */
     @MessageMapping("/review/{reviewId}/presence")

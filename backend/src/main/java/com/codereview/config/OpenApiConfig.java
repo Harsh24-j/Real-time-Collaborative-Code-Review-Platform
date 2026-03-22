@@ -1,4 +1,4 @@
-package com.codereview.config;
+﻿package com.codereview.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -19,8 +19,8 @@ import java.util.List;
  * Skills: API, Web Applications, Back-End Web Development
  *
  * Accessible at:
- * http://localhost:8080/swagger-ui.html — Interactive UI
- * http://localhost:8080/api-docs — Raw OpenAPI JSON
+ * http://localhost:8080/swagger-ui.html â€” Interactive UI
+ * http://localhost:8080/api-docs â€” Raw OpenAPI JSON
  *
  * All secured endpoints show a "Authorize" button in the UI.
  * Paste "Bearer <token>" after logging in to test protected routes.
@@ -36,11 +36,11 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
-                // ── API Metadata ────────────────────────────────────────────
+                // â”€â”€ API Metadata â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 .info(new Info()
-                        .title("Code Review Platform API")
+                        .title("Zyncora API")
                         .description("""
-                                AI-powered real-time collaborative code review platform.
+                                AI-powered real-time collaborative Zyncora.
 
                                 **Authentication**: Use `POST /api/auth/login` to obtain a JWT token,
                                 then click **Authorize** and enter `Bearer <your-token>`.
@@ -56,7 +56,7 @@ public class OpenApiConfig {
                                 .name("MIT License")
                                 .url("https://opensource.org/licenses/MIT")))
 
-                // ── Servers ─────────────────────────────────────────────────
+                // â”€â”€ Servers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 .servers(List.of(
                         new Server()
                                 .url("http://localhost:" + serverPort)
@@ -65,7 +65,7 @@ public class OpenApiConfig {
                                 .url("https://api.codereview.example.com")
                                 .description("AWS EC2 Production")))
 
-                // ── JWT Security Scheme ──────────────────────────────────────
+                // â”€â”€ JWT Security Scheme â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 .components(new Components()
                         .addSecuritySchemes(BEARER_SCHEME,
                                 new SecurityScheme()

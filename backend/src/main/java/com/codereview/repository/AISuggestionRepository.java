@@ -1,4 +1,4 @@
-package com.codereview.repository;
+﻿package com.codereview.repository;
 
 import com.codereview.model.AISuggestion;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,7 +29,7 @@ public interface AISuggestionRepository extends JpaRepository<AISuggestion, Long
 
     long countByCategory(AISuggestion.Category category);
 
-    // Ordered by severity priority: CRITICAL → WARNING → INFO
+    // Ordered by severity priority: CRITICAL â†’ WARNING â†’ INFO
     @Query("SELECT s FROM AISuggestion s WHERE s.review.id = :reviewId " +
             "ORDER BY CASE s.severity " +
             "WHEN 'CRITICAL' THEN 1 " +

@@ -1,4 +1,4 @@
-import React from 'react'
+﻿import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from './hooks/useAuthStore'
 
@@ -19,7 +19,7 @@ import ReviewDetail from './components/review/ReviewDetail'
 import CreateReview from './components/review/CreateReview'
 
 /**
- * ProtectedRoute — redirects to /login when not authenticated.
+ * ProtectedRoute â€” redirects to /login when not authenticated.
  */
 function ProtectedRoute({ children }) {
     const { isAuthenticated } = useAuthStore()
@@ -27,7 +27,7 @@ function ProtectedRoute({ children }) {
 }
 
 /**
- * GuestRoute — redirects to /dashboard when already authenticated.
+ * GuestRoute â€” redirects to /dashboard when already authenticated.
  */
 function GuestRoute({ children }) {
     const { isAuthenticated } = useAuthStore()
@@ -35,7 +35,7 @@ function GuestRoute({ children }) {
 }
 
 /**
- * App — root routing and layout shell.
+ * App â€” root routing and layout shell.
  * Skills: JavaScript, Front-End Web Development, Model View Controller (View)
  */
 function App() {

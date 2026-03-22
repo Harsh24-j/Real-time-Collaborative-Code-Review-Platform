@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.dto.*;
 import com.codereview.exception.ResourceNotFoundException;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * ReviewService — CRUD, status transitions, quality scoring, search.
+ * ReviewService â€” CRUD, status transitions, quality scoring, search.
  * Skills: Spring Boot, RESTful API, Data Persistence, Server Side
  */
 @Service
@@ -36,7 +36,7 @@ public class ReviewService {
     private final GamificationService gamificationService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    // ── Create ─────────────────────────────────────────────────────────────
+    // â”€â”€ Create â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public ReviewResponse createReview(CreateReviewRequest request, String username) {
         User creator = userRepository.findByUsername(username)
@@ -60,7 +60,7 @@ public class ReviewService {
         return toResponse(saved);
     }
 
-    // ── Read ───────────────────────────────────────────────────────────────
+    // â”€â”€ Read â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Transactional(readOnly = true)
     public ReviewResponse getReviewById(Long id) {
@@ -105,7 +105,7 @@ public class ReviewService {
                 .stream().map(this::toResponse).collect(Collectors.toList());
     }
 
-    // ── Update ─────────────────────────────────────────────────────────────
+    // â”€â”€ Update â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public ReviewResponse updateReview(Long id, UpdateReviewRequest request, String username) {
         CodeReview review = findOrThrow(id);
@@ -127,7 +127,7 @@ public class ReviewService {
         return toResponse(saved);
     }
 
-    /** Updates the quality score — typically called by AIService after analysis. */
+    /** Updates the quality score â€” typically called by AIService after analysis. */
     public void updateQualityScore(Long reviewId, Double score) {
         CodeReview review = findOrThrow(reviewId);
         review.setQualityScore(score);
@@ -135,7 +135,7 @@ public class ReviewService {
         broadcastUpdate(review);
     }
 
-    // ── Delete ─────────────────────────────────────────────────────────────
+    // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public void deleteReview(Long id, String username) {
         CodeReview review = findOrThrow(id);
@@ -144,7 +144,7 @@ public class ReviewService {
         log.info("Review {} deleted by {}", id, username);
     }
 
-    // ── Status transitions ─────────────────────────────────────────────────
+    // â”€â”€ Status transitions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private void transitionStatus(CodeReview review, CodeReview.Status newStatus, String byUsername) {
         CodeReview.Status old = review.getStatus();
@@ -159,10 +159,10 @@ public class ReviewService {
         if (newStatus == CodeReview.Status.APPROVED) {
             gamificationService.onReviewApproved(review.getCreator());
         }
-        log.info("Review {} status: {} → {}", review.getId(), old, newStatus);
+        log.info("Review {} status: {} â†’ {}", review.getId(), old, newStatus);
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private CodeReview findOrThrow(Long id) {
         return reviewRepository.findById(id)

@@ -1,4 +1,4 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 import com.codereview.model.CodeReview;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * ReviewResponse DTO — full review detail returned by the API
+ * ReviewResponse DTO â€” full review detail returned by the API
  * Skills: RESTful API, Model View Controller, API
  */
 @Data
@@ -27,17 +27,17 @@ public class ReviewResponse {
     private CodeReview.Status status;
     private Double qualityScore;
 
-    // ── Creator summary ───────────────────────────────────────────────────
+    // â”€â”€ Creator summary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private Long creatorId;
     private String creatorUsername;
     private String creatorFullName;
 
-    // ── Aggregated counts (avoids pulling full lists) ─────────────────────
+    // â”€â”€ Aggregated counts (avoids pulling full lists) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private Long commentCount;
     private Long aiSuggestionCount;
     private Long unresolvedCommentCount;
 
-    // ── AI analysis summary ───────────────────────────────────────────────
+    // â”€â”€ AI analysis summary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private Long criticalIssues;
     private Long warningIssues;
     private Long infoIssues;

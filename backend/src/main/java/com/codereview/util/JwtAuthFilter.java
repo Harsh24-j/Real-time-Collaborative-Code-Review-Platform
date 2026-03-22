@@ -1,4 +1,4 @@
-package com.codereview.util;
+﻿package com.codereview.util;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -18,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 /**
- * JwtAuthFilter — intercepts every request, extracts the Bearer token,
+ * JwtAuthFilter â€” intercepts every request, extracts the Bearer token,
  * validates it, and populates the Spring Security context.
  * Skills: Secure Coding, Spring Boot
  */
@@ -66,7 +66,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             log.warn("JWT processing failed for request [{}]: {}",
                     request.getRequestURI(), e.getMessage());
-            // Do not throw — let request proceed unauthenticated; Security rules will
+            // Do not throw â€” let request proceed unauthenticated; Security rules will
             // reject it
         }
 

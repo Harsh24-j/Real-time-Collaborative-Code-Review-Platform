@@ -1,4 +1,4 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthResponse {
 
-    /** Bearer JWT token — include as Authorization header on subsequent requests */
+    /** Bearer JWT token â€” include as Authorization header on subsequent requests */
     private String token;
 
     private String tokenType = "Bearer";
@@ -23,7 +23,7 @@ public class AuthResponse {
     /** Token lifetime in milliseconds (matches app.jwt.expiration) */
     private Long expiresIn;
 
-    // ── Embedded user summary ─────────────────────────────────────────────
+    // â”€â”€ Embedded user summary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private Long userId;
     private String username;
     private String email;

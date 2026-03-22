@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { Trophy, Medal, Star, Award, TrendingUp, Crown } from 'lucide-react'
 import { userAPI } from '../../services/api'
 import { useAuthStore } from '../../hooks/useAuthStore'
 
 /**
- * Leaderboard — top users by points with tier badges.
+ * Leaderboard â€” top users by points with tier badges.
  * Skills: JavaScript, Front-End Web Development
  */
 function Leaderboard() {
@@ -16,7 +16,7 @@ function Leaderboard() {
         userAPI.getLeaderboard().then(setUsers).catch(() => { }).finally(() => setLoading(false))
     }, [])
 
-    // ── Rank helpers ───────────────────────────────────────────────────────
+    // â”€â”€ Rank helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const RANK_STYLE = {
         0: { icon: <Crown className="w-5 h-5 text-amber-400" />, ring: 'ring-2 ring-amber-400/60', bg: 'from-amber-500/20 to-amber-600/5' },
@@ -25,15 +25,15 @@ function Leaderboard() {
     }
 
     const pointsTier = (pts) => {
-        if (pts >= 500) return { label: 'Diamond', colour: 'text-cyan-300', icon: '💎' }
-        if (pts >= 200) return { label: 'Gold', colour: 'text-amber-400', icon: '🥇' }
-        if (pts >= 100) return { label: 'Silver', colour: 'text-slate-300', icon: '🥈' }
-        return { label: 'Bronze', colour: 'text-amber-600', icon: '🥉' }
+        if (pts >= 500) return { label: 'Diamond', colour: 'text-cyan-300', icon: 'ðŸ’Ž' }
+        if (pts >= 200) return { label: 'Gold', colour: 'text-amber-400', icon: 'ðŸ¥‡' }
+        if (pts >= 100) return { label: 'Silver', colour: 'text-slate-300', icon: 'ðŸ¥ˆ' }
+        return { label: 'Bronze', colour: 'text-amber-600', icon: 'ðŸ¥‰' }
     }
 
     const maxPoints = users[0]?.points ?? 1
 
-    // ── Podium (top 3) ─────────────────────────────────────────────────────
+    // â”€â”€ Podium (top 3) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const Podium = ({ user: u, rank }) => {
         const rs = RANK_STYLE[rank]
@@ -80,7 +80,7 @@ function Leaderboard() {
         )
     }
 
-    // ── Rest of table ──────────────────────────────────────────────────────
+    // â”€â”€ Rest of table â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const RankRow = ({ user: u, rank }) => {
         const tier = pointsTier(u.points)
@@ -150,7 +150,7 @@ function Leaderboard() {
             ) : users.length === 0 ? (
                 <div className="card text-center py-12 text-slate-400">
                     <Trophy className="w-12 h-12 mx-auto mb-3 opacity-30" />
-                    No users yet — start reviewing to earn points!
+                    No users yet â€” start reviewing to earn points!
                 </div>
             ) : (
                 <>

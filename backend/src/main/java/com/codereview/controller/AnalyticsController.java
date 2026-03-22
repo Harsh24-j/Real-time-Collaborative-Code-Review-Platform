@@ -1,4 +1,4 @@
-package com.codereview.controller;
+﻿package com.codereview.controller;
 
 import com.codereview.service.AnalyticsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 /**
- * AnalyticsController — dashboard stats, review metrics, trends.
+ * AnalyticsController â€” dashboard stats, review metrics, trends.
  * Skills: RESTful API, Spring Boot, Server Side
  */
 @RestController
@@ -21,7 +21,7 @@ public class AnalyticsController {
 
     private final AnalyticsService analyticsService;
 
-    // ── GET /api/analytics/dashboard ─────────────────────────────────────
+    // â”€â”€ GET /api/analytics/dashboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/dashboard")
     @Operation(summary = "Get platform-wide dashboard statistics")
@@ -29,7 +29,7 @@ public class AnalyticsController {
         return ResponseEntity.ok(analyticsService.getDashboardStats());
     }
 
-    // ── GET /api/analytics/reviews/{id} ──────────────────────────────────
+    // â”€â”€ GET /api/analytics/reviews/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/reviews/{id}")
     @Operation(summary = "Get detailed metrics for a specific review")
@@ -37,7 +37,7 @@ public class AnalyticsController {
         return ResponseEntity.ok(analyticsService.getReviewMetrics(id));
     }
 
-    // ── GET /api/analytics/trends ─────────────────────────────────────────
+    // â”€â”€ GET /api/analytics/trends â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/trends")
     @Operation(summary = "Get trend data for the last N days")
@@ -46,7 +46,7 @@ public class AnalyticsController {
         return ResponseEntity.ok(analyticsService.getTrends(days));
     }
 
-    // ── GET /api/analytics/users/{id} ────────────────────────────────────
+    // â”€â”€ GET /api/analytics/users/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/users/{id}")
     @Operation(summary = "Get analytics for a specific user")

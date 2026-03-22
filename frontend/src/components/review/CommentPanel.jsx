@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { MessageSquare, CheckCircle, Bot, Send, X } from 'lucide-react'
 
 /**
- * CommentPanel — displays comment thread and inline comment input.
+ * CommentPanel â€” displays comment thread and inline comment input.
  * Skills: JavaScript, Front-End Web Development
  */
 function CommentPanel({ comments = [], selectedLine, onAddComment, onResolve, onClearLine }) {
@@ -46,7 +46,7 @@ function CommentPanel({ comments = [], selectedLine, onAddComment, onResolve, on
                             onChange={(e) => setText(e.target.value)}
                             className="input text-sm resize-none"
                             rows={3}
-                            placeholder="Add your comment…"
+                            placeholder="Add your commentâ€¦"
                             autoFocus
                             maxLength={5000}
                         />
@@ -56,7 +56,7 @@ function CommentPanel({ comments = [], selectedLine, onAddComment, onResolve, on
                             className="btn btn-primary btn-sm w-full"
                         >
                             {submitting
-                                ? <><span className="spinner" /> Posting…</>
+                                ? <><span className="spinner" /> Postingâ€¦</>
                                 : <><Send className="w-3.5 h-3.5" /> Post comment</>}
                         </button>
                     </form>
@@ -72,7 +72,7 @@ function CommentPanel({ comments = [], selectedLine, onAddComment, onResolve, on
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             className="input text-sm flex-1"
-                            placeholder="Add a general comment…"
+                            placeholder="Add a general commentâ€¦"
                             maxLength={5000}
                         />
                         <button
@@ -122,7 +122,7 @@ function CommentPanel({ comments = [], selectedLine, onAddComment, onResolve, on
     )
 }
 
-// ── CommentCard ────────────────────────────────────────────────────────────
+// â”€â”€ CommentCard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function CommentCard({ comment, onResolve, resolved = false }) {
     return (

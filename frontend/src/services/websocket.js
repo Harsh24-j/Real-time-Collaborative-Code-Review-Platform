@@ -1,8 +1,8 @@
-import SockJS from 'sockjs-client/dist/sockjs.js'
+﻿import SockJS from 'sockjs-client/dist/sockjs.js'
 import { Client } from '@stomp/stompjs'
 
 /**
- * WebSocketService — singleton STOMP client over SockJS.
+ * WebSocketService â€” singleton STOMP client over SockJS.
  * Skills: JavaScript, Full-Stack Web Development
  *
  * Usage:
@@ -29,12 +29,12 @@ const WS_URL = import.meta.env.VITE_WS_URL || 'http://localhost:8080/ws-review'
 class WebSocketService {
     constructor() {
         this.client = null
-        this.subscriptions = new Map()  // key → STOMP subscription
+        this.subscriptions = new Map()  // key â†’ STOMP subscription
         this._onConnected = null
         this._onError = null
     }
 
-    // ── Lifecycle ─────────────────────────────────────────────────────────
+    // â”€â”€ Lifecycle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     connect(onConnected = null, onError = null) {
         if (this.client?.active) return       // already connected
@@ -80,7 +80,7 @@ class WebSocketService {
         return !!(this.client?.connected)
     }
 
-    // ── Subscriptions ─────────────────────────────────────────────────────
+    // â”€â”€ Subscriptions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /** Subscribe to new comments broadcast on a review. */
     subscribeToReview(reviewId, onComment) {
@@ -127,7 +127,7 @@ class WebSocketService {
         })
     }
 
-    // ── Publish ───────────────────────────────────────────────────────────
+    // â”€â”€ Publish â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /** Send a comment to the WebSocket controller (also persists via service). */
     sendComment(reviewId, commentData) {
@@ -149,11 +149,11 @@ class WebSocketService {
         this._publish(`/app/review/${reviewId}/presence`, { status })
     }
 
-    // ── Private helpers ───────────────────────────────────────────────────
+    // â”€â”€ Private helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     _subscribe(key, destination, callback) {
         if (!this.isConnected) {
-            console.warn(`[WS] Cannot subscribe to ${destination} — not connected`)
+            console.warn(`[WS] Cannot subscribe to ${destination} â€” not connected`)
             return null
         }
         if (this.subscriptions.has(key)) return this.subscriptions.get(key)
@@ -171,7 +171,7 @@ class WebSocketService {
 
     _publish(destination, payload) {
         if (!this.isConnected) {
-            console.warn(`[WS] Cannot publish to ${destination} — not connected`)
+            console.warn(`[WS] Cannot publish to ${destination} â€” not connected`)
             return
         }
         this.client.publish({ destination, body: JSON.stringify(payload) })

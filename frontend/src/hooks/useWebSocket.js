@@ -1,8 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+﻿import { useState, useEffect, useCallback } from 'react'
 import wsService from '../services/websocket'
 
 /**
- * useWebSocket — React hook wrapping the singleton WebSocketService.
+ * useWebSocket â€” React hook wrapping the singleton WebSocketService.
  * Connects on mount and disconnects on unmount.
  * Skills: JavaScript, Front-End Web Development, Full-Stack Web Development
  */
@@ -19,7 +19,7 @@ export function useWebSocket() {
             setIsConnected(true)
         }
         return () => {
-            // Don't disconnect on every unmount — the singleton persists across pages.
+            // Don't disconnect on every unmount â€” the singleton persists across pages.
             // Call wsService.disconnect() only on explicit logout.
         }
     }, [])

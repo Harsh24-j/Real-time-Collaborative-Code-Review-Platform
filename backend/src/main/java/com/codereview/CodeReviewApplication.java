@@ -1,4 +1,4 @@
-package com.codereview;
+﻿package com.codereview;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +18,7 @@ public class CodeReviewApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CodeReviewApplication.class, args);
-        log.info("✅ Code Review Platform Started Successfully!");
-        log.info("📚 Swagger UI: http://localhost:8080/swagger-ui.html");
+        log.info("âœ… Zyncora Started Successfully!");
+        log.info("ðŸ“š Swagger UI: http://localhost:8080/swagger-ui.html");
     }
 }

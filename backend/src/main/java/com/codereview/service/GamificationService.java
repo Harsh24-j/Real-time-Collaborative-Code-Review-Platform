@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.model.Badge;
 import com.codereview.model.User;
@@ -12,14 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * GamificationService — points, badge awards, and leaderboard logic.
+ * GamificationService â€” points, badge awards, and leaderboard logic.
  * Skills: Full-Stack Web Development, Server Side, Spring Boot
  *
  * Points table:
- * REVIEW_CREATED → 10 pts
- * COMMENT_ADDED → 5 pts
- * REVIEW_APPROVED → 20 pts
- * REVIEW_RESOLVED → 15 pts
+ * REVIEW_CREATED â†’ 10 pts
+ * COMMENT_ADDED â†’ 5 pts
+ * REVIEW_APPROVED â†’ 20 pts
+ * REVIEW_RESOLVED â†’ 15 pts
  */
 @Service
 @RequiredArgsConstructor
@@ -35,7 +35,7 @@ public class GamificationService {
     private final UserRepository userRepository;
     private final BadgeRepository badgeRepository;
 
-    // ── Event hooks (called by other services) ─────────────────────────────
+    // â”€â”€ Event hooks (called by other services) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public void onReviewCreated(User user) {
         addPoints(user, PTS_REVIEW_CREATED, "REVIEW_CREATED");
@@ -53,7 +53,7 @@ public class GamificationService {
         addPoints(user, PTS_REVIEW_RESOLVED, "REVIEW_RESOLVED");
     }
 
-    // ── Badge evaluation ───────────────────────────────────────────────────
+    // â”€â”€ Badge evaluation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Check whether the user has crossed any badge threshold since the last award.
@@ -76,7 +76,7 @@ public class GamificationService {
         }
     }
 
-    // ── Leaderboard ───────────────────────────────────────────────────────
+    // â”€â”€ Leaderboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Transactional(readOnly = true)
     public List<User> getTopUsers(int limit) {
@@ -86,7 +86,7 @@ public class GamificationService {
                 .toList();
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private void addPoints(User user, int pts, String reason) {
         user.setPoints(user.getPoints() + pts);

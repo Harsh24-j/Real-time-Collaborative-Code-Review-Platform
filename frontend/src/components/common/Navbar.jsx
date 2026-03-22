@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import {
     Code2, LayoutDashboard, FileCode2, Trophy, User,
@@ -8,7 +8,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import wsService from '../../services/websocket'
 
 /**
- * Navbar — responsive top navigation with user dropdown.
+ * Navbar â€” responsive top navigation with user dropdown.
  * Skills: JavaScript, Front-End Web Development, HTML/CSS
  */
 function Navbar() {
@@ -81,7 +81,7 @@ function Navbar() {
                                 <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5
                                  bg-amber-500/10 border border-amber-500/20 rounded-full
                                  text-amber-400 text-xs font-medium">
-                                    ⭐ {user?.points ?? 0} pts
+                                    â­ {user?.points ?? 0} pts
                                 </div>
 
                                 {/* User dropdown */}

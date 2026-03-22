@@ -1,4 +1,4 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
- * ErrorResponse DTO — standardised error envelope
+ * ErrorResponse DTO â€” standardised error envelope
  * Skills: API, Secure Coding, Back-End Web Development
  */
 @Data

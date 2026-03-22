@@ -1,4 +1,4 @@
-package com.codereview.repository;
+﻿package com.codereview.repository;
 
 import com.codereview.model.ReviewActivity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -37,13 +37,13 @@ public interface ReviewActivityRepository extends JpaRepository<ReviewActivity, 
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate);
 
-    // Activity-type counts per review — returns Object[]{String activityType, Long
+    // Activity-type counts per review â€” returns Object[]{String activityType, Long
     // count}
     @Query("SELECT a.activityType, COUNT(a) FROM ReviewActivity a " +
             "WHERE a.review.id = :reviewId GROUP BY a.activityType")
     List<Object[]> countByActivityType(@Param("reviewId") Long reviewId);
 
-    // Per-user activity summary — returns Object[]{String activityType, Long count}
+    // Per-user activity summary â€” returns Object[]{String activityType, Long count}
     @Query("SELECT a.activityType, COUNT(a) FROM ReviewActivity a " +
             "WHERE a.user.id = :userId GROUP BY a.activityType")
     List<Object[]> getUserActivitySummary(@Param("userId") Long userId);

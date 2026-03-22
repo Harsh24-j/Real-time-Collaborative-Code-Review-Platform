@@ -1,9 +1,9 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react'
+﻿import React, { useState, useRef, useEffect, useCallback } from 'react'
 import Editor from '@monaco-editor/react'
 import { MessageSquare, Sparkles, ChevronDown } from 'lucide-react'
 
 /**
- * CodeEditor — Monaco Editor with comment/AI-suggestion decorations.
+ * CodeEditor â€” Monaco Editor with comment/AI-suggestion decorations.
  * Skills: JavaScript, Front-End Web Development
  */
 function CodeEditor({
@@ -21,13 +21,13 @@ function CodeEditor({
     const decorationIds = useRef([])
     const [selectedLine, setSelectedLine] = useState(null)
 
-    // ── Editor mount ─────────────────────────────────────────────────────
+    // â”€â”€ Editor mount â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const handleMount = useCallback((editor, monaco) => {
         editorRef.current = editor
         monacoRef.current = monaco
 
-        // Gutter click → select line for comments
+        // Gutter click â†’ select line for comments
         editor.onMouseDown((e) => {
             if (e.target.type === monaco.editor.MouseTargetType.GUTTER_LINE_NUMBERS ||
                 e.target.type === monaco.editor.MouseTargetType.GUTTER_GLYPH_MARGIN) {
@@ -42,7 +42,7 @@ function CodeEditor({
         applyDecorations(editor, monaco)
     }, []) // eslint-disable-line
 
-    // ── Decorations ───────────────────────────────────────────────────────
+    // â”€â”€ Decorations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const applyDecorations = useCallback((editor, monaco) => {
         if (!editor || !monaco) return
@@ -58,7 +58,7 @@ function CodeEditor({
                     isWholeLine: true,
                     className: 'bg-blue-500/10 border-l-2 border-blue-500',
                     glyphMarginClassName: 'text-blue-400',
-                    glyphMarginHoverMessage: { value: `💬 ${c.username ?? 'User'}: ${c.commentText}` },
+                    glyphMarginHoverMessage: { value: `ðŸ’¬ ${c.username ?? 'User'}: ${c.commentText}` },
                 },
             })
         })
@@ -67,9 +67,9 @@ function CodeEditor({
         aiSuggestions?.forEach((s) => {
             if (!s.lineStart) return
             const colours = {
-                CRITICAL: { bg: 'bg-red-500/15 border-l-2 border-red-500', glyph: '🔴' },
-                WARNING: { bg: 'bg-amber-500/15 border-l-2 border-amber-500', glyph: '🟡' },
-                INFO: { bg: 'bg-blue-500/10 border-l-2 border-blue-400', glyph: '🔵' },
+                CRITICAL: { bg: 'bg-red-500/15 border-l-2 border-red-500', glyph: 'ðŸ”´' },
+                WARNING: { bg: 'bg-amber-500/15 border-l-2 border-amber-500', glyph: 'ðŸŸ¡' },
+                INFO: { bg: 'bg-blue-500/10 border-l-2 border-blue-400', glyph: 'ðŸ”µ' },
             }
             const c = colours[s.severity] ?? colours.INFO
             newDecs.push({
@@ -91,7 +91,7 @@ function CodeEditor({
         }
     }, [applyDecorations])
 
-    // ── Editor options ────────────────────────────────────────────────────
+    // â”€â”€ Editor options â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const options = {
         readOnly,
@@ -149,7 +149,7 @@ function CodeEditor({
                     options={options}
                     loading={
                         <div className="flex items-center justify-center h-full bg-slate-900 text-slate-400 text-sm">
-                            <span className="spinner mr-2" /> Loading editor…
+                            <span className="spinner mr-2" /> Loading editorâ€¦
                         </div>
                     }
                 />
@@ -162,7 +162,7 @@ function CodeEditor({
                         bg-blue-600 text-white text-xs px-3 py-2 rounded-lg shadow-lg
                         shadow-blue-600/30">
                     <ChevronDown className="w-3.5 h-3.5" />
-                    Line {selectedLine} — click gutter to comment
+                    Line {selectedLine} â€” click gutter to comment
                 </div>
             )}
         </div>

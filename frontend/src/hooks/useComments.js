@@ -1,9 +1,9 @@
-import { useState, useCallback } from 'react'
+﻿import { useState, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { commentAPI } from '../services/api'
 
 /**
- * useComments — comment CRUD with optimistic updates.
+ * useComments â€” comment CRUD with optimistic updates.
  * Skills: JavaScript, Front-End Web Development
  */
 export function useComments(reviewId) {
@@ -22,7 +22,7 @@ export function useComments(reviewId) {
         }
     }, [reviewId])
 
-    /** Optimistic add — appends a placeholder until the server echo arrives. */
+    /** Optimistic add â€” appends a placeholder until the server echo arrives. */
     const addComment = useCallback(async (commentText, lineNumber = null) => {
         const payload = { reviewId: Number(reviewId), commentText: commentText.trim(), lineNumber }
         try {
@@ -38,7 +38,7 @@ export function useComments(reviewId) {
         }
     }, [reviewId])
 
-    /** Called when WebSocket broadcasts a new comment — avoids duplicates. */
+    /** Called when WebSocket broadcasts a new comment â€” avoids duplicates. */
     const receiveComment = useCallback((comment) => {
         setComments((prev) => {
             const exists = prev.some((c) => c.id === comment.id)

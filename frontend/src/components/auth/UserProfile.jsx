@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import {
     User, Mail, Star, Code2, MessageSquare, Award,
@@ -8,7 +8,7 @@ import { userAPI } from '../../services/api'
 import { useAuthStore } from '../../hooks/useAuthStore'
 
 /**
- * UserProfile — view and edit profile, change password, view stats.
+ * UserProfile â€” view and edit profile, change password, view stats.
  * Skills: JavaScript, Front-End Web Development
  */
 function UserProfile() {
@@ -31,7 +31,7 @@ function UserProfile() {
         }
     }, [user])
 
-    // ── Save profile ──────────────────────────────────────────────────────
+    // â”€â”€ Save profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const handleSaveProfile = async () => {
         setLoading(true)
@@ -47,7 +47,7 @@ function UserProfile() {
         }
     }
 
-    // ── Change password ───────────────────────────────────────────────────
+    // â”€â”€ Change password â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const handleChangePassword = async (e) => {
         e.preventDefault()
@@ -75,10 +75,10 @@ function UserProfile() {
     }
 
     const pointsTier = (pts = 0) => {
-        if (pts >= 500) return { label: 'Diamond', colour: 'text-cyan-300', icon: '💎' }
-        if (pts >= 200) return { label: 'Gold', colour: 'text-amber-400', icon: '🥇' }
-        if (pts >= 100) return { label: 'Silver', colour: 'text-slate-300', icon: '🥈' }
-        return { label: 'Bronze', colour: 'text-amber-600', icon: '🥉' }
+        if (pts >= 500) return { label: 'Diamond', colour: 'text-cyan-300', icon: 'ðŸ’Ž' }
+        if (pts >= 200) return { label: 'Gold', colour: 'text-amber-400', icon: 'ðŸ¥‡' }
+        if (pts >= 100) return { label: 'Silver', colour: 'text-slate-300', icon: 'ðŸ¥ˆ' }
+        return { label: 'Bronze', colour: 'text-amber-600', icon: 'ðŸ¥‰' }
     }
     const tier = pointsTier(user?.points)
 
@@ -151,7 +151,7 @@ function UserProfile() {
                             </div>
                         </div>
                         <button onClick={handleSaveProfile} disabled={loading} className="btn btn-primary btn-sm">
-                            {loading ? <><span className="spinner" /> Saving…</> : <><Save className="w-3.5 h-3.5" /> Save changes</>}
+                            {loading ? <><span className="spinner" /> Savingâ€¦</> : <><Save className="w-3.5 h-3.5" /> Save changes</>}
                         </button>
                     </div>
                 )}
@@ -224,7 +224,7 @@ function UserProfile() {
                             </div>
                         ))}
                         <button type="submit" disabled={loading} className="btn btn-primary btn-sm">
-                            {loading ? <><span className="spinner" /> Updating…</> : <><Save className="w-3.5 h-3.5" /> Update password</>}
+                            {loading ? <><span className="spinner" /> Updatingâ€¦</> : <><Save className="w-3.5 h-3.5" /> Update password</>}
                         </button>
                     </form>
                 </div>

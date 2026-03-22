@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.dto.*;
 import com.codereview.exception.ResourceNotFoundException;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * UserService — user lifecycle, authentication helpers, points management.
+ * UserService â€” user lifecycle, authentication helpers, points management.
  * Implements UserDetailsService so Spring Security can load users by username.
  * Skills: Spring Boot, Secure Coding, Back-End Web Development
  */
@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final GamificationService gamificationService;
 
-    // ── Spring Security ────────────────────────────────────────────────────
+    // â”€â”€ Spring Security â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
                         "User not found: " + username));
     }
 
-    // ── Registration ───────────────────────────────────────────────────────
+    // â”€â”€ Registration â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public UserResponse register(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
@@ -70,7 +70,7 @@ public class UserService implements UserDetailsService {
         return toResponse(saved);
     }
 
-    // ── Profile ────────────────────────────────────────────────────────────
+    // â”€â”€ Profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) {
@@ -110,7 +110,7 @@ public class UserService implements UserDetailsService {
         log.info("Password changed for user: {}", user.getUsername());
     }
 
-    // ── Points & Gamification ─────────────────────────────────────────────
+    // â”€â”€ Points & Gamification â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public void addPoints(Long userId, int points) {
         User user = findOrThrow(userId);
@@ -120,7 +120,7 @@ public class UserService implements UserDetailsService {
         log.debug("Added {} points to user {}. Total: {}", points, userId, user.getPoints());
     }
 
-    // ── Leaderboard ───────────────────────────────────────────────────────
+    // â”€â”€ Leaderboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Transactional(readOnly = true)
     public List<UserResponse> getLeaderboard() {
@@ -138,7 +138,7 @@ public class UserService implements UserDetailsService {
                 .collect(Collectors.toList());
     }
 
-    // ── Admin ─────────────────────────────────────────────────────────────
+    // â”€â”€ Admin â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public void deactivateUser(Long userId) {
         User user = findOrThrow(userId);
@@ -147,7 +147,7 @@ public class UserService implements UserDetailsService {
         log.warn("User deactivated: {}", user.getUsername());
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private User findOrThrow(Long id) {
         return userRepository.findById(id)

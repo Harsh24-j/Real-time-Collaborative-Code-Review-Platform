@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { Sparkles, AlertTriangle, AlertCircle, Info, RefreshCw, Wand2 } from 'lucide-react'
 import { analyticsAPI } from '../../services/api'
 
@@ -17,7 +17,7 @@ const CATEGORY_COLOUR = {
 }
 
 /**
- * AISuggestionsPanel — loads and displays AI suggestions for a review.
+ * AISuggestionsPanel â€” loads and displays AI suggestions for a review.
  * Skills: JavaScript, Front-End Web Development
  */
 function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0, suggestions = [], onApplyFix }) {
@@ -43,7 +43,7 @@ function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0, su
     const displayWarnings = metrics?.aiSeverityDistribution?.WARNING ?? warnings ?? 0
     const displayInfo = metrics?.aiSeverityDistribution?.INFO ?? info ?? 0
 
-    // ── Summary row ──────────────────────────────────────────────────────
+    // â”€â”€ Summary row â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const SummaryPill = ({ count, label, colorClass }) =>
         count > 0 ? (
@@ -78,7 +78,7 @@ function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0, su
                 <div className="flex flex-col items-center py-8 text-slate-500 text-sm">
                     <Sparkles className="w-10 h-10 mb-2 text-emerald-500 opacity-70" />
                     <p className="font-medium text-emerald-400">No issues detected!</p>
-                    <p className="text-xs mt-1">Your code looks clean 🎉</p>
+                    <p className="text-xs mt-1">Your code looks clean ðŸŽ‰</p>
                 </div>
             )}
 
@@ -150,7 +150,7 @@ function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0, su
                 </>
             ) : (
                 <p className="text-xs text-slate-500 text-center py-4">
-                    Metrics unavailable — analysis may still be running
+                    Metrics unavailable â€” analysis may still be running
                 </p>
             )}
 
@@ -202,7 +202,7 @@ function AISuggestionsPanel({ reviewId, critical = 0, warnings = 0, info = 0, su
             )}
 
             <p className="text-[10px] text-slate-600 text-center">
-                Powered by GPT-4 · Results appear automatically after creation
+                Powered by GPT-4 Â· Results appear automatically after creation
             </p>
         </div>
     )

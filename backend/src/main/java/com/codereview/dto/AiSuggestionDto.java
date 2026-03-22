@@ -1,7 +1,7 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 /**
- * AiSuggestionDto — typed record used as BeanOutputConverter target for Spring
+ * AiSuggestionDto â€” typed record used as BeanOutputConverter target for Spring
  * AI.
  *
  * Spring AI's BeanOutputConverter serialises the schema of this record into the

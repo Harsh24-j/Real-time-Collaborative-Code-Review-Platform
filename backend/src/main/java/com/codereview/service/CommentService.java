@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.dto.CommentRequest;
 import com.codereview.dto.CommentResponse;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * CommentService — comment CRUD, resolve/unresolve, real-time broadcast.
+ * CommentService â€” comment CRUD, resolve/unresolve, real-time broadcast.
  * Skills: Spring Boot, RESTful API, Server Side
  */
 @Service
@@ -32,7 +32,7 @@ public class CommentService {
     private final GamificationService gamificationService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    // ── Create ─────────────────────────────────────────────────────────────
+    // â”€â”€ Create â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public CommentResponse addComment(CommentRequest request, String username) {
         User user = userRepository.findByUsername(username)
@@ -69,14 +69,14 @@ public class CommentService {
         return response;
     }
 
-    /** Called by AIService — stores AI-generated suggestion as a comment. */
+    /** Called by AIService â€” stores AI-generated suggestion as a comment. */
     public CommentResponse addAiComment(Long reviewId, Integer lineNumber, String text) {
         CodeReview review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ResourceNotFoundException("Review", "id", reviewId));
 
         Comment comment = Comment.builder()
                 .review(review)
-                .user(null) // system/AI — no user
+                .user(null) // system/AI â€” no user
                 .lineNumber(lineNumber)
                 .commentText(text)
                 .isAiGenerated(true)
@@ -89,7 +89,7 @@ public class CommentService {
         return response;
     }
 
-    // ── Read ───────────────────────────────────────────────────────────────
+    // â”€â”€ Read â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Transactional(readOnly = true)
     public List<CommentResponse> getCommentsByReview(Long reviewId) {
@@ -109,7 +109,7 @@ public class CommentService {
                 .stream().map(this::toResponse).collect(Collectors.toList());
     }
 
-    // ── Update ─────────────────────────────────────────────────────────────
+    // â”€â”€ Update â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public CommentResponse updateComment(Long commentId, String newText, String username) {
         Comment comment = findOrThrow(commentId);
@@ -137,7 +137,7 @@ public class CommentService {
         return toResponse(commentRepository.save(comment));
     }
 
-    // ── Delete ─────────────────────────────────────────────────────────────
+    // â”€â”€ Delete â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     public void deleteComment(Long commentId, String username) {
         Comment comment = findOrThrow(commentId);
@@ -146,7 +146,7 @@ public class CommentService {
         log.info("Comment {} deleted by {}", commentId, username);
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private Comment findOrThrow(Long id) {
         return commentRepository.findById(id)

@@ -1,4 +1,4 @@
-package com.codereview.controller;
+﻿package com.codereview.controller;
 
 import com.codereview.dto.*;
 import com.codereview.model.User;
@@ -17,7 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * AuthController — registration, login, and profile retrieval.
+ * AuthController â€” registration, login, and profile retrieval.
  * Skills: Secure Coding, RESTful API, Spring Boot, Back-End Web Development
  */
 @RestController
@@ -30,7 +30,7 @@ public class AuthController {
     private final AuthenticationManager authManager;
     private final JwtUtil jwtUtil;
 
-    // ── POST /api/auth/register ───────────────────────────────────────────
+    // â”€â”€ POST /api/auth/register â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/register")
     @Operation(summary = "Register a new user account")
@@ -39,7 +39,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    // ── POST /api/auth/login ──────────────────────────────────────────────
+    // â”€â”€ POST /api/auth/login â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/login")
     @Operation(summary = "Login and receive a JWT token")
@@ -65,8 +65,8 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    // ── POST /api/auth/logout ─────────────────────────────────────────────
-    // JWT is stateless — logout is handled client-side by discarding the token.
+    // â”€â”€ POST /api/auth/logout â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // JWT is stateless â€” logout is handled client-side by discarding the token.
     // This endpoint exists for API completeness and future token-blacklist support.
 
     @PostMapping("/logout")
@@ -75,7 +75,7 @@ public class AuthController {
         return ResponseEntity.ok("Logged out successfully");
     }
 
-    // ── GET /api/auth/me ──────────────────────────────────────────────────
+    // â”€â”€ GET /api/auth/me â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/me")
     @Operation(summary = "Get currently authenticated user profile")

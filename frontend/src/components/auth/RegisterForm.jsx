@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { UserPlus, Eye, EyeOff, Code2, CheckCircle, XCircle } from 'lucide-react'
@@ -144,7 +144,7 @@ function RegisterForm() {
                                     value={formData.password}
                                     onChange={handleChange}
                                     className="input bg-white/5 text-white placeholder-indigo-300/40 border-indigo-400/20 focus:border-blue-400/50 pr-11 py-2.5"
-                                    placeholder="••••••••"
+                                    placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                                     autoComplete="new-password"
                                     required
                                 />

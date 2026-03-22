@@ -1,4 +1,4 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 import com.codereview.model.CodeReview;
 import jakarta.validation.constraints.DecimalMax;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.DecimalMin;
 import lombok.Data;
 
 /**
- * UpdateReviewRequest DTO — partial update (all fields optional)
+ * UpdateReviewRequest DTO â€” partial update (all fields optional)
  * Skills: RESTful API, API
  */
 @Data

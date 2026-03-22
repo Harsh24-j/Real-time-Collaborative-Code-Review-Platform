@@ -1,4 +1,4 @@
-package com.codereview.model;
+﻿package com.codereview.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 /**
- * LearningResource — curated learning materials (docs, tutorials, articles)
+ * LearningResource â€” curated learning materials (docs, tutorials, articles)
  * surfaced alongside AI code-review suggestions to help developers improve.
  *
  * Skills: Data Persistence, J2EE, Spring Boot

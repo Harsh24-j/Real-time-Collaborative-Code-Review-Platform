@@ -1,4 +1,4 @@
-package com.codereview.util;
+﻿package com.codereview.util;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
- * DateUtil — formatting, relative time, timezone helpers.
+ * DateUtil â€” formatting, relative time, timezone helpers.
  * Skills: Server Side, Spring Boot
  */
 public final class DateUtil {

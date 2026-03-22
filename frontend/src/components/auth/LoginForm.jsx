@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+﻿import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import { authAPI } from '../../services/api'
@@ -40,7 +40,7 @@ function LoginForm() {
           role: data.role,
           points: data.points,
       })
-      toast.success('🎉 Welcome back!')
+      toast.success('ðŸŽ‰ Welcome back!')
       navigate('/dashboard')
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed')

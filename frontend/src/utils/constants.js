@@ -1,9 +1,9 @@
-/**
- * constants.js — app-wide constants for status, languages, badges, etc.
+﻿/**
+ * constants.js â€” app-wide constants for status, languages, badges, etc.
  * Skills: JavaScript
  */
 
-// ── Review status ─────────────────────────────────────────────────────────
+// â”€â”€ Review status â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const REVIEW_STATUSES = ['OPEN', 'IN_REVIEW', 'APPROVED', 'REJECTED', 'CLOSED']
 
@@ -23,7 +23,7 @@ export const STATUS_LABELS = {
     CLOSED: 'Closed',
 }
 
-// ── Languages ─────────────────────────────────────────────────────────────
+// â”€â”€ Languages â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const LANGUAGES = [
     'java', 'python', 'javascript', 'typescript', 'go', 'rust',
@@ -40,7 +40,7 @@ export const LANGUAGE_COLOUR = {
     kotlin: 'text-purple-400',
 }
 
-// ── AI severity ───────────────────────────────────────────────────────────
+// â”€â”€ AI severity â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const SEVERITY_BADGE_CLASS = {
     CRITICAL: 'severity-critical',
@@ -50,7 +50,7 @@ export const SEVERITY_BADGE_CLASS = {
 
 export const SEVERITY_WEIGHT = { CRITICAL: 3, WARNING: 2, INFO: 1 }
 
-// ── Gamification ──────────────────────────────────────────────────────────
+// â”€â”€ Gamification â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const POINT_VALUES = {
     SUBMIT_REVIEW: 10,
@@ -60,21 +60,21 @@ export const POINT_VALUES = {
 }
 
 export const TIERS = [
-    { label: 'Bronze', min: 0, icon: '🥉', colour: 'text-amber-600' },
-    { label: 'Silver', min: 100, icon: '🥈', colour: 'text-slate-300' },
-    { label: 'Gold', min: 200, icon: '🥇', colour: 'text-amber-400' },
-    { label: 'Diamond', min: 500, icon: '💎', colour: 'text-cyan-300' },
+    { label: 'Bronze', min: 0, icon: 'ðŸ¥‰', colour: 'text-amber-600' },
+    { label: 'Silver', min: 100, icon: 'ðŸ¥ˆ', colour: 'text-slate-300' },
+    { label: 'Gold', min: 200, icon: 'ðŸ¥‡', colour: 'text-amber-400' },
+    { label: 'Diamond', min: 500, icon: 'ðŸ’Ž', colour: 'text-cyan-300' },
 ]
 
 export function getTier(points) {
     return [...TIERS].reverse().find((t) => points >= t.min) ?? TIERS[0]
 }
 
-// ── Pagination ────────────────────────────────────────────────────────────
+// â”€â”€ Pagination â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const PAGE_SIZES = [5, 10, 20, 50]
 export const DEFAULT_PAGE_SIZE = 10
 
-// ── Code editor max size ──────────────────────────────────────────────────
+// â”€â”€ Code editor max size â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const MAX_CODE_LENGTH = 100_000

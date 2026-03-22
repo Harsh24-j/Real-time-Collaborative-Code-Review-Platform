@@ -1,4 +1,4 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,12 +22,12 @@ public class CommentResponse {
     private Integer lineNumber;
     private String commentText;
 
-    // ── Flags ──────────────────────────────────────────────────────────────
+    // â”€â”€ Flags â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private Boolean isAiGenerated;
     private Boolean isVoiceGenerated;
     private Boolean isResolved;
 
-    // ── Author summary ─────────────────────────────────────────────────────
+    // â”€â”€ Author summary â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
     private Long userId;
     private String username;
     private String userFullName;

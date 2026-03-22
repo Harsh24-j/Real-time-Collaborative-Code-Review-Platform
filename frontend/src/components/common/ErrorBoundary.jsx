@@ -1,7 +1,7 @@
-import React from 'react'
+﻿import React from 'react'
 
 /**
- * ErrorBoundary — catches any React render/lifecycle crash and renders a
+ * ErrorBoundary â€” catches any React render/lifecycle crash and renders a
  * friendly fallback instead of a blank page.
  *
  * Place this high in the tree (e.g. wrapping <App>) so it catches crashes

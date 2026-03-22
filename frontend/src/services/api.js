@@ -1,8 +1,8 @@
-import axios from 'axios'
+﻿import axios from 'axios'
 import toast from 'react-hot-toast'
 
 /**
- * API Service — Axios HTTP client with JWT interceptors and structured error handling.
+ * API Service â€” Axios HTTP client with JWT interceptors and structured error handling.
  * Skills: JavaScript, RESTful API, Full-Stack Web Development
  *
  * Error shape from backend GlobalExceptionHandler:
@@ -11,14 +11,14 @@ import toast from 'react-hot-toast'
 
 const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
 
-// ── Axios instance ────────────────────────────────────────────────────────
+// â”€â”€ Axios instance â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const api = axios.create({
     baseURL: BASE_URL,
     headers: { 'Content-Type': 'application/json' },
     timeout: 30_000,   // 30 s (AI analysis can be slow)
 })
 
-// ── Request interceptor — attach JWT ─────────────────────────────────────
+// â”€â”€ Request interceptor â€” attach JWT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token')
@@ -28,7 +28,7 @@ api.interceptors.request.use(
     (error) => Promise.reject(error)
 )
 
-// ── Response interceptor — global error handling ──────────────────────────
+// â”€â”€ Response interceptor â€” global error handling â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 api.interceptors.response.use(
     // Success: unwrap `.data` so callers get the payload directly
     (response) => response.data,
@@ -38,7 +38,7 @@ api.interceptors.response.use(
         const data = error.response?.data   // our ErrorResponse DTO
         const message = data?.message || error.message || 'An unexpected error occurred'
 
-        // 401 — session expired or not logged in → auto logout
+        // 401 â€” session expired or not logged in â†’ auto logout
         if (status === 401) {
             localStorage.removeItem('token')
             localStorage.removeItem('auth-storage')
@@ -50,27 +50,27 @@ api.interceptors.response.use(
             return Promise.reject(error)
         }
 
-        // 403 — access denied — let the component handle it, just propagate
+        // 403 â€” access denied â€” let the component handle it, just propagate
         if (status === 403) {
             return Promise.reject(error)
         }
 
-        // 404 — let the component decide how to surface it
+        // 404 â€” let the component decide how to surface it
         if (status === 404) {
             return Promise.reject(error)
         }
 
-        // 409 — conflict (duplicate email/username etc.)
+        // 409 â€” conflict (duplicate email/username etc.)
         if (status === 409) {
             return Promise.reject(error)
         }
 
-        // 422 / 400 validation — components handle field errors
+        // 422 / 400 validation â€” components handle field errors
         if (status === 400 || status === 422) {
             return Promise.reject(error)
         }
 
-        // 503 / 500+ — server errors — show global toast
+        // 503 / 500+ â€” server errors â€” show global toast
         if (!status || status >= 500) {
             const toastMsg = status === 503
                 ? 'AI service is temporarily unavailable. Please try again shortly.'
@@ -94,11 +94,11 @@ api.interceptors.response.use(
     }
 )
 
-// ── Error utility helpers ─────────────────────────────────────────────────
+// â”€â”€ Error utility helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 /**
  * Extract a human-readable error message from an Axios error.
- * Falls back through: backend message → network message → generic.
+ * Falls back through: backend message â†’ network message â†’ generic.
  */
 export function getErrorMessage(error) {
     return error?.response?.data?.message
@@ -122,7 +122,7 @@ export function getFieldErrors(error) {
     )
 }
 
-// ── Authentication ────────────────────────────────────────────────────────
+// â”€â”€ Authentication â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const authAPI = {
     login: (credentials) => api.post('/api/auth/login', credentials),
     register: (userData) => api.post('/api/auth/register', userData),
@@ -130,7 +130,7 @@ export const authAPI = {
     logout: () => api.post('/api/auth/logout'),
 }
 
-// ── Reviews ───────────────────────────────────────────────────────────────
+// â”€â”€ Reviews â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const reviewAPI = {
     getAll: (params = {}) => api.get('/api/reviews', { params }),
     getById: (id) => api.get(`/api/reviews/${id}`),
@@ -145,7 +145,7 @@ export const reviewAPI = {
     getRecent: (hours = 24) => api.get('/api/reviews/recent', { params: { hours } }),
 }
 
-// ── Comments ──────────────────────────────────────────────────────────────
+// â”€â”€ Comments â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const commentAPI = {
     create: (reviewId, data) => api.post(`/api/reviews/${reviewId}/comments`, data),
     update: (id, commentText) => api.put(`/api/comments/${id}`, { commentText }),
@@ -157,7 +157,7 @@ export const commentAPI = {
     unresolved: (reviewId) => api.get(`/api/reviews/${reviewId}/comments/unresolved`),
 }
 
-// ── Users ─────────────────────────────────────────────────────────────────
+// â”€â”€ Users â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const userAPI = {
     getProfile: () => api.get('/api/users/profile'),
     updateProfile: (data) => api.put('/api/users/profile', data),
@@ -168,7 +168,7 @@ export const userAPI = {
     getStats: (id) => api.get(`/api/users/${id}/stats`),
 }
 
-// ── Analytics ─────────────────────────────────────────────────────────────
+// â”€â”€ Analytics â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export const analyticsAPI = {
     getDashboard: () => api.get('/api/analytics/dashboard'),
     getReviewMetrics: (id) => api.get(`/api/analytics/reviews/${id}`),

@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.model.AISuggestion;
 import com.codereview.model.Comment;
@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * ConflictResolutionService — detects overlapping/contradictory comments
+ * ConflictResolutionService â€” detects overlapping/contradictory comments
  * and generates AI-assisted merge suggestions.
  * Skills: Server Side, Spring Boot, RESTful API
  */
@@ -33,7 +33,7 @@ public class ConflictResolutionService {
     public record ConflictGroup(Integer lineNumber, List<Comment> comments, String resolution) {
     }
 
-    // ── Detection ─────────────────────────────────────────────────────────
+    // â”€â”€ Detection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Find all lines in a review where more than one comment exists.
@@ -46,7 +46,7 @@ public class ConflictResolutionService {
                 .filter(c -> !c.getIsAiGenerated() && !c.getIsResolved() && c.getLineNumber() != null)
                 .collect(Collectors.toList());
 
-        // Group by line number — lines with >1 comment are conflicts
+        // Group by line number â€” lines with >1 comment are conflicts
         Map<Integer, List<Comment>> byLine = comments.stream()
                 .collect(Collectors.groupingBy(Comment::getLineNumber));
 
@@ -85,7 +85,7 @@ public class ConflictResolutionService {
         return result;
     }
 
-    // ── Resolution ────────────────────────────────────────────────────────
+    // â”€â”€ Resolution â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Asynchronously generate an AI-recommended resolution for a set of
@@ -127,7 +127,7 @@ public class ConflictResolutionService {
         log.info("Marked conflict resolved: reviewId={} line={}", reviewId, lineNumber);
     }
 
-    // ── Merge suggestion ──────────────────────────────────────────────────
+    // â”€â”€ Merge suggestion â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Build a plain-text merge suggestion from conflicting comments
@@ -137,13 +137,13 @@ public class ConflictResolutionService {
         if (comments == null || comments.isEmpty())
             return "";
 
-        StringJoiner joiner = new StringJoiner("\n• ", "Consolidated feedback:\n• ", "");
+        StringJoiner joiner = new StringJoiner("\nâ€¢ ", "Consolidated feedback:\nâ€¢ ", "");
         comments.forEach(c -> joiner.add(c.getCommentText()));
         return joiner.toString();
     }
 
-    // ── private helper placeholder ─────────────────────────────────────────
-    // (Avoids circular dependency — in production wire CommentService via @Lazy)
+    // â”€â”€ private helper placeholder â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // (Avoids circular dependency â€” in production wire CommentService via @Lazy)
     private void commentService(Long reviewId, Integer lineNumber, String text) {
         log.info("Would post AI resolution comment on reviewId={} line={}", reviewId, lineNumber);
     }

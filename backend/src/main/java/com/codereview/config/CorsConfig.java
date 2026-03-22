@@ -1,4 +1,4 @@
-package com.codereview.config;
+﻿package com.codereview.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class CorsConfig {
     private String allowedOriginsRaw;
 
     /**
-     * CorsFilter — applied before the Spring Security filter chain
+     * CorsFilter â€” applied before the Spring Security filter chain
      * so that pre-flight OPTIONS requests are handled without authentication.
      */
     @Bean

@@ -1,5 +1,5 @@
-/**
- * validators.js — form validation helpers.
+﻿/**
+ * validators.js â€” form validation helpers.
  * Skills: JavaScript
  */
 

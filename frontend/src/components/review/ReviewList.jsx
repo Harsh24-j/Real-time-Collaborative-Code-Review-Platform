@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import {
@@ -28,7 +28,7 @@ const LANGUAGE_COLOURS = {
 }
 
 /**
- * ReviewList — paginated/searchable/filterable review grid.
+ * ReviewList â€” paginated/searchable/filterable review grid.
  * Skills: JavaScript, Front-End Web Development, Responsive Web Design
  */
 function ReviewList() {
@@ -79,7 +79,7 @@ function ReviewList() {
         <BackgroundWrapper variant="code2">
             <div className="animate-fade-in relative z-10 p-4">
 
-            {/* ── Header ─────────────────────────────────────────────────────── */}
+            {/* â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <div className="flex items-center justify-between mb-8">
                 <div>
                     <h1 className="page-title">Code Reviews</h1>
@@ -97,13 +97,13 @@ function ReviewList() {
                 </div>
             </div>
 
-            {/* ── Filters ────────────────────────────────────────────────────── */}
+            {/* â”€â”€ Filters â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <div className="glass-card-dark p-4 mb-6 flex gap-3 shadow-lg">
                 <div className="flex-1 relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
                     <input
                         type="text"
-                        placeholder="Search reviews…"
+                        placeholder="Search reviewsâ€¦"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleServerSearch()}
@@ -121,7 +121,7 @@ function ReviewList() {
                 </select>
             </div>
 
-            {/* ── Content ────────────────────────────────────────────────────── */}
+            {/* â”€â”€ Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             {loading ? (
                 <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
                     {Array.from({ length: 6 }).map((_, i) => (
@@ -156,7 +156,7 @@ function ReviewList() {
     )
 }
 
-// ── ReviewCard ─────────────────────────────────────────────────────────────
+// â”€â”€ ReviewCard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function ReviewCard({ review }) {
     const navigate = useNavigate()

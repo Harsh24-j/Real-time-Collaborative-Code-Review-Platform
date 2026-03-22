@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.model.AISuggestion;
 import com.codereview.model.LearningResource;
@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * LearningResourceService — maps AI-detected categories to curated resources.
+ * LearningResourceService â€” maps AI-detected categories to curated resources.
  * Skills: Server Side, Spring Boot, Data Persistence
  */
 @Service
@@ -71,11 +71,11 @@ public class LearningResourceService {
 
     public String getCategoryDescription(AISuggestion.Category category) {
         return switch (category) {
-            case SECURITY -> "Security vulnerability — injection, secrets, auth";
-            case PERFORMANCE -> "Performance issue — complexity, queries, caching";
-            case STYLE -> "Code style — naming, formatting, readability";
-            case BUGS -> "Potential bug — nulls, edge cases, logic errors";
-            case BEST_PRACTICE -> "Best practice — SOLID, DRY, design patterns";
+            case SECURITY -> "Security vulnerability â€” injection, secrets, auth";
+            case PERFORMANCE -> "Performance issue â€” complexity, queries, caching";
+            case STYLE -> "Code style â€” naming, formatting, readability";
+            case BUGS -> "Potential bug â€” nulls, edge cases, logic errors";
+            case BEST_PRACTICE -> "Best practice â€” SOLID, DRY, design patterns";
         };
     }
 }

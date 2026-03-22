@@ -1,9 +1,9 @@
-import { useState, useCallback } from 'react'
+﻿import { useState, useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { reviewAPI } from '../services/api'
 
 /**
- * useReview — review CRUD and status management.
+ * useReview â€” review CRUD and status management.
  * Skills: JavaScript, Front-End Web Development
  */
 export function useReview() {
@@ -45,7 +45,7 @@ export function useReview() {
         try {
             const created = await reviewAPI.create(payload)
             setReviews((prev) => [created, ...prev])
-            toast.success('Review created — AI analysis started!')
+            toast.success('Review created â€” AI analysis started!')
             return created
         } catch (err) {
             toast.error(err.response?.data?.message || 'Failed to create review')

@@ -1,4 +1,4 @@
-package com.codereview.repository;
+﻿package com.codereview.repository;
 
 import com.codereview.model.CodeReview;
 import org.springframework.data.domain.Page;
@@ -44,7 +44,7 @@ public interface CodeReviewRepository extends JpaRepository<CodeReview, Long> {
     @Query("SELECT DISTINCT r FROM CodeReview r JOIN FETCH r.creator")
     List<CodeReview> findAllWithCreator();
 
-    // Reviews with comment counts — returns Object[]{CodeReview, Long}
+    // Reviews with comment counts â€” returns Object[]{CodeReview, Long}
     @Query("SELECT r, COUNT(c) FROM CodeReview r LEFT JOIN r.comments c " +
             "GROUP BY r ORDER BY r.createdAt DESC")
     List<Object[]> findAllWithCommentCount();

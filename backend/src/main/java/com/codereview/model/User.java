@@ -1,4 +1,4 @@
-package com.codereview.model;
+﻿package com.codereview.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -75,7 +75,7 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // ── UserDetails Implementation (Spring Security) ──────────────────────
+    // â”€â”€ UserDetails Implementation (Spring Security) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

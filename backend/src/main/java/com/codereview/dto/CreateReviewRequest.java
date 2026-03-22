@@ -1,4 +1,4 @@
-package com.codereview.dto;
+﻿package com.codereview.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.Data;
 public class CreateReviewRequest {
 
     @NotBlank(message = "Title is required")
-    @Size(min = 5, max = 200, message = "Title must be 5–200 characters")
+    @Size(min = 5, max = 200, message = "Title must be 5â€“200 characters")
     private String title;
 
     @Size(max = 2000, message = "Description must be at most 2000 characters")

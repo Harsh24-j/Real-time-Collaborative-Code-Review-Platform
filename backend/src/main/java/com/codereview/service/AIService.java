@@ -1,4 +1,4 @@
-package com.codereview.service;
+﻿package com.codereview.service;
 
 import com.codereview.dto.AiSuggestionDto;
 import com.codereview.model.AISuggestion;
@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * AIService — Spring AI-powered code analysis using GPT-4o.
+ * AIService â€” Spring AI-powered code analysis using GPT-4o.
  * Skills: Server Side, RESTful API, Spring Boot
  *
  * Uses Spring AI's {@link ChatClient} (auto-configured from spring.ai.openai.*)
@@ -42,7 +42,7 @@ public class AIService {
     private final ReviewService reviewService;
     private final CommentService commentService;
 
-    // ── Public API ─────────────────────────────────────────────────────────
+    // â”€â”€ Public API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Asynchronously analyse a code review using Spring AI + GPT-4o.
@@ -81,7 +81,7 @@ public class AIService {
                         || s.getSeverity() == AISuggestion.Severity.WARNING)
                 .forEach(s -> commentService.addAiComment(
                         reviewId, s.getLineStart(),
-                        "[" + s.getSeverity() + " – " + s.getCategory() + "] " + s.getSuggestion()));
+                        "[" + s.getSeverity() + " â€“ " + s.getCategory() + "] " + s.getSuggestion()));
 
         log.info("[Spring AI] Analysis complete: reviewId={}, suggestions={}, score={}",
                 reviewId, suggestions.size(), score);
@@ -89,7 +89,7 @@ public class AIService {
         return CompletableFuture.completedFuture(suggestions);
     }
 
-    // ── Spring AI call ─────────────────────────────────────────────────────
+    // â”€â”€ Spring AI call â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Calls GPT-4o via Spring AI ChatClient with a {@link BeanOutputConverter}.
@@ -99,7 +99,7 @@ public class AIService {
      * - Deserialises the model response into {@code List<AiSuggestionDto>}
      */
     private List<AISuggestion> callSpringAI(CodeReview review) {
-        // Type-safe converter: GPT JSON array → List<AiSuggestionDto>
+        // Type-safe converter: GPT JSON array â†’ List<AiSuggestionDto>
         BeanOutputConverter<List<AiSuggestionDto>> converter = new BeanOutputConverter<>(
                 new ParameterizedTypeReference<List<AiSuggestionDto>>() {
                 });
@@ -152,7 +152,7 @@ public class AIService {
         return mapToEntities(dtos, review);
     }
 
-    // ── Mapping ────────────────────────────────────────────────────────────
+    // â”€â”€ Mapping â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private List<AISuggestion> mapToEntities(List<AiSuggestionDto> dtos, CodeReview review) {
         List<AISuggestion> entities = new ArrayList<>();
@@ -197,12 +197,12 @@ public class AIService {
         }
     }
 
-    // ── Quality Score ──────────────────────────────────────────────────────
+    // â”€â”€ Quality Score â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
      * Scoring formula: start at 10.0, deduct per issue.
      * CRITICAL: -2.0 | WARNING: -0.5 | INFO: -0.1 | Floor at 0.0.
-     * Returns a 0.0–10.0 score.
+     * Returns a 0.0â€“10.0 score.
      */
     private double computeQualityScore(List<AISuggestion> suggestions) {
         double score = 10.0;
@@ -216,13 +216,13 @@ public class AIService {
         return Math.max(0.0, Math.round(score * 100.0) / 100.0);
     }
 
-    // ── Helpers ────────────────────────────────────────────────────────────
+    // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /** Truncate very large code submissions to stay within model context limits. */
     private String truncateCode(String code) {
         if (code == null)
             return "";
-        // GPT-4o context: 128k tokens; 100k chars ≈ ~25k tokens — safe limit
+        // GPT-4o context: 128k tokens; 100k chars â‰ˆ ~25k tokens â€” safe limit
         int limit = 100_000;
         return code.length() > limit ? code.substring(0, limit) + "\n... [truncated]" : code;
     }

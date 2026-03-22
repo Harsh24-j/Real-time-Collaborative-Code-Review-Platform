@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
     Code2, MessageSquare, Award, TrendingUp, Plus, ArrowRight,
@@ -9,7 +9,7 @@ import { useAuthStore } from '../../hooks/useAuthStore'
 import BackgroundWrapper from '../common/BackgroundWrapper'
 
 /**
- * Dashboard — platform overview with stats, recent reviews, and quick actions.
+ * Dashboard â€” platform overview with stats, recent reviews, and quick actions.
  * Skills: JavaScript, Front-End Web Development, Full-Stack Web Development
  */
 function Dashboard() {
@@ -32,14 +32,14 @@ function Dashboard() {
                 setReviews(Array.isArray(r) ? r.slice(0, 5) : (r.content ?? []).slice(0, 5))
                 setTrends(t)
             } catch {
-                /* silent — individual cards handle null gracefully */
+                /* silent â€” individual cards handle null gracefully */
             } finally {
                 setLoading(false)
             }
         })()
     }, [])
 
-    // ── Status helpers ─────────────────────────────────────────────────────
+    // â”€â”€ Status helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const STATUS_ICON = {
         OPEN: <Clock className="w-3.5 h-3.5 text-blue-400" />,
@@ -57,7 +57,7 @@ function Dashboard() {
         CLOSED: 'badge badge-gray',
     }
 
-    // ── Stat card ──────────────────────────────────────────────────────────
+    // â”€â”€ Stat card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const StatCard = ({ icon, label, value, sub, iconBg }) => (
         <div className="glass-card-dark p-6 flex items-start gap-4 shadow-xl">
@@ -67,14 +67,14 @@ function Dashboard() {
             <div>
                 <p className="text-xs text-slate-400 uppercase tracking-wider">{label}</p>
                 <p className="text-2xl font-bold text-slate-100 mt-0.5">
-                    {loading ? <span className="skeleton inline-block w-12 h-6 rounded" /> : (value ?? '—')}
+                    {loading ? <span className="skeleton inline-block w-12 h-6 rounded" /> : (value ?? 'â€”')}
                 </p>
                 {sub && <p className="text-xs text-slate-500 mt-1">{sub}</p>}
             </div>
         </div>
     )
 
-    // ── Language distribution ──────────────────────────────────────────────
+    // â”€â”€ Language distribution â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const topLangs = trends?.languageDistribution
         ? Object.entries(trends.languageDistribution)
@@ -90,7 +90,7 @@ function Dashboard() {
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="page-title">
-                        Welcome back, {user?.fullName?.split(' ')[0] ?? user?.username} 👋
+                        Welcome back, {user?.fullName?.split(' ')[0] ?? user?.username} ðŸ‘‹
                     </h1>
                     <p className="page-subtitle">Here's what's happening on the platform today</p>
                 </div>
@@ -155,7 +155,7 @@ function Dashboard() {
                     ) : reviews.length === 0 ? (
                         <div className="text-center py-8 text-slate-500 text-sm">
                             <Code2 className="w-10 h-10 mx-auto mb-2 opacity-30" />
-                            No reviews yet —{' '}
+                            No reviews yet â€”{' '}
                             <button onClick={() => navigate('/reviews/create')}
                                 className="text-blue-400 hover:underline">create one</button>
                         </div>
@@ -177,7 +177,7 @@ function Dashboard() {
                                                 {r.title}
                                             </p>
                                             <p className="text-xs text-slate-500">
-                                                {r.language} · by {r.creatorUsername}
+                                                {r.language} Â· by {r.creatorUsername}
                                             </p>
                                         </div>
                                     </div>

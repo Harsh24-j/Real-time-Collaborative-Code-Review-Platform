@@ -1,4 +1,4 @@
-package com.codereview.model;
+﻿package com.codereview.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 /**
- * ReviewActivity Entity — audit log for analytics and activity feeds
+ * ReviewActivity Entity â€” audit log for analytics and activity feeds
  * Skills: Data Persistence, J2EE
  *
  * Tracks every significant action on a review (comment added, status changed,

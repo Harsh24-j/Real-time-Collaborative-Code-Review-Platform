@@ -1,5 +1,5 @@
-/**
- * formatters.js — date/time formatting and display helpers.
+﻿/**
+ * formatters.js â€” date/time formatting and display helpers.
  * Skills: JavaScript
  */
 
@@ -35,7 +35,7 @@ export function formatNumber(n) {
 
 export function truncate(str, maxLen = 80) {
     if (!str) return ''
-    return str.length <= maxLen ? str : str.slice(0, maxLen - 1) + '…'
+    return str.length <= maxLen ? str : str.slice(0, maxLen - 1) + 'â€¦'
 }
 
 export function capitalise(str) {

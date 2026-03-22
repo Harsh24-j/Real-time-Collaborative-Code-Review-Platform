@@ -1,4 +1,4 @@
-package com.codereview.config;
+﻿package com.codereview.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -7,15 +7,15 @@ import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 /**
- * WebSocket Configuration — STOMP over SockJS
+ * WebSocket Configuration â€” STOMP over SockJS
  * Skills: RESTful API (WebSocket), Server Side, Full-Stack Web Development
  *
  * Endpoints:
- * CONNECT /ws-review — SockJS upgrade handshake
- * SUBSCRIBE /topic/review/{id} — live comment feed for a review
- * SUBSCRIBE /topic/presence — online-user presence updates
- * SEND /app/** — messages routed through @MessageMapping handlers
- * SUBSCRIBE /user/queue/notify — private per-user notifications
+ * CONNECT /ws-review â€” SockJS upgrade handshake
+ * SUBSCRIBE /topic/review/{id} â€” live comment feed for a review
+ * SUBSCRIBE /topic/presence â€” online-user presence updates
+ * SEND /app/** â€” messages routed through @MessageMapping handlers
+ * SUBSCRIBE /user/queue/notify â€” private per-user notifications
  */
 @Configuration
 @EnableWebSocketMessageBroker

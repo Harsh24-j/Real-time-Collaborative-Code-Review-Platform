@@ -1,4 +1,4 @@
-package com.codereview.exception;
+﻿package com.codereview.exception;
 
 import com.codereview.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * GlobalExceptionHandler — centralised, structured error responses for the API.
+ * GlobalExceptionHandler â€” centralised, structured error responses for the API.
  *
  * Every unhandled exception is caught here and converted to an
  * {@link ErrorResponse}
@@ -47,7 +47,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    // ── 404 Not Found ─────────────────────────────────────────────────────
+    // â”€â”€ 404 Not Found â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(
@@ -56,7 +56,7 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.NOT_FOUND, "NOT_FOUND", ex.getMessage(), request);
     }
 
-    // ── 401 Unauthorized ──────────────────────────────────────────────────
+    // â”€â”€ 401 Unauthorized â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(UnauthorizedException.class)
     public ResponseEntity<ErrorResponse> handleUnauthorized(
@@ -86,7 +86,7 @@ public class GlobalExceptionHandler {
                 "Your account is temporarily locked. Please try again later.", request);
     }
 
-    // ── 403 Forbidden ─────────────────────────────────────────────────────
+    // â”€â”€ 403 Forbidden â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDenied(
@@ -95,7 +95,7 @@ public class GlobalExceptionHandler {
                 "You do not have permission to perform this action", request);
     }
 
-    // ── 409 Conflict ──────────────────────────────────────────────────────
+    // â”€â”€ 409 Conflict â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handleUserExists(
@@ -105,7 +105,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Database-level constraint violations (duplicate email, FK violations, etc.)
-     * Sanitised message — never expose raw SQL to the client.
+     * Sanitised message â€” never expose raw SQL to the client.
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrity(
@@ -122,10 +122,10 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.CONFLICT, "DUPLICATE_ENTRY", msg, request);
     }
 
-    // ── 400 Bad Request ───────────────────────────────────────────────────
+    // â”€â”€ 400 Bad Request â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     /**
-     * Bean-validation failures — returns a map of field → error message pairs.
+     * Bean-validation failures â€” returns a map of field â†’ error message pairs.
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidation(
@@ -181,7 +181,7 @@ public class GlobalExceptionHandler {
                 request);
     }
 
-    // ── 405 Method Not Allowed ────────────────────────────────────────────
+    // â”€â”€ 405 Method Not Allowed â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleMethodNotSupported(
@@ -190,7 +190,7 @@ public class GlobalExceptionHandler {
                 ex.getMethod() + " is not supported for this endpoint", request);
     }
 
-    // ── 413 Payload Too Large ─────────────────────────────────────────────
+    // â”€â”€ 413 Payload Too Large â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(MaxUploadSizeExceededException.class)
     public ResponseEntity<ErrorResponse> handleMaxUploadSize(
@@ -199,7 +199,7 @@ public class GlobalExceptionHandler {
                 "Request payload exceeds the maximum allowed size", request);
     }
 
-    // ── 415 Unsupported Media Type ────────────────────────────────────────
+    // â”€â”€ 415 Unsupported Media Type â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleMediaType(
@@ -208,7 +208,7 @@ public class GlobalExceptionHandler {
                 "Content type '" + ex.getContentType() + "' is not supported", request);
     }
 
-    // ── Generic API exception ─────────────────────────────────────────────
+    // â”€â”€ Generic API exception â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<ErrorResponse> handleApiException(
@@ -217,7 +217,7 @@ public class GlobalExceptionHandler {
         return build(ex.getStatus(), ex.getErrorCode(), ex.getMessage(), request);
     }
 
-    // ── 500 Fallback ──────────────────────────────────────────────────────
+    // â”€â”€ 500 Fallback â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneral(Exception ex, WebRequest request) {
@@ -226,7 +226,7 @@ public class GlobalExceptionHandler {
                 "An unexpected error occurred. Please try again later.", request);
     }
 
-    // ── Builders ──────────────────────────────────────────────────────────
+    // â”€â”€ Builders â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private ResponseEntity<ErrorResponse> build(
             HttpStatus status, String error, String message, WebRequest request) {

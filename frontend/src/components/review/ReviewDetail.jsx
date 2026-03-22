@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+﻿import React, { useState, useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import {
@@ -14,7 +14,7 @@ import AISuggestionsPanel from './AISuggestionsPanel'
 import BackgroundWrapper from '../common/BackgroundWrapper'
 
 /**
- * ReviewDetail — full-screen review page with real-time WebSocket collaboration.
+ * ReviewDetail â€” full-screen review page with real-time WebSocket collaboration.
  * Skills: JavaScript, Full-Stack Web Development, WebSocket
  */
 function ReviewDetail() {
@@ -32,7 +32,7 @@ function ReviewDetail() {
     const [activeTab, setActiveTab] = useState('comments') // 'comments' | 'ai'
     const [statusLoading, setStatusLoading] = useState(false)
 
-    // ── Load data ──────────────────────────────────────────────────────────
+    // â”€â”€ Load data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const loadReview = useCallback(async () => {
         try {
@@ -57,7 +57,7 @@ function ReviewDetail() {
 
     useEffect(() => { loadReview() }, [loadReview])
 
-    // ── WebSocket subscriptions ────────────────────────────────────────────
+    // â”€â”€ WebSocket subscriptions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     useEffect(() => {
         if (!isConnected || !id) return
@@ -80,7 +80,7 @@ function ReviewDetail() {
         return () => unsubscribe(id)
     }, [isConnected, id, subscribeToReview, subscribeToCursors, unsubscribe])
 
-    // ── Handlers ───────────────────────────────────────────────────────────
+    // â”€â”€ Handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const handleAddComment = useCallback(async (commentText, lineNumber) => {
         if (!commentText?.trim()) return
@@ -110,7 +110,7 @@ function ReviewDetail() {
         try {
             await reviewAPI.updateStatus(id, newStatus)
             setReview((prev) => ({ ...prev, status: newStatus }))
-            toast.success(`Status → ${newStatus}`)
+            toast.success(`Status â†’ ${newStatus}`)
         } catch {
             toast.error('Failed to update status')
         } finally {
@@ -121,7 +121,7 @@ function ReviewDetail() {
     const handleReanalyse = useCallback(async () => {
         try {
             await reviewAPI.triggerAnalysis(id)
-            toast.success('AI analysis started — results will appear shortly')
+            toast.success('AI analysis started â€” results will appear shortly')
         } catch {
             toast.error('Failed to trigger analysis')
         }
@@ -154,7 +154,7 @@ function ReviewDetail() {
                 language: review.language,
                 codeContent: newCode
             })
-            toast.success('AI fix applied successfully! ✨')
+            toast.success('AI fix applied successfully! âœ¨')
             
             // Re-fetch suggestions since lines might have shifted
             const updatedSuggestions = await reviewAPI.getAiSuggestions(id)
@@ -166,7 +166,7 @@ function ReviewDetail() {
         }
     }, [id, review, loadReview])
 
-    // ── Status helpers ─────────────────────────────────────────────────────
+    // â”€â”€ Status helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     const STATUS_BADGE = {
         OPEN: 'badge badge-blue',
@@ -176,12 +176,12 @@ function ReviewDetail() {
         CLOSED: 'badge badge-gray',
     }
 
-    // ── Loading / empty states ─────────────────────────────────────────────
+    // â”€â”€ Loading / empty states â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     if (loading) {
         return (
             <div className="flex items-center justify-center h-[80vh] gap-3 text-slate-400">
-                <span className="spinner" /> Loading review…
+                <span className="spinner" /> Loading reviewâ€¦
             </div>
         )
     }
@@ -193,7 +193,7 @@ function ReviewDetail() {
         <BackgroundWrapper variant="darkTech">
             <div className="h-[calc(100vh-80px)] flex flex-col -mx-4 -mt-8 relative z-10">
 
-            {/* ── Header ─────────────────────────────────────────────────────── */}
+            {/* â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <header className="flex items-start justify-between gap-4
                          bg-slate-950/60 backdrop-blur-xl border-b border-white/10 px-6 py-4 flex-shrink-0">
                 <div className="flex items-start gap-4 min-w-0">
@@ -270,7 +270,7 @@ function ReviewDetail() {
                 </div>
             </header>
 
-            {/* ── Main Content ────────────────────────────────────────────────── */}
+            {/* â”€â”€ Main Content â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
             <div className="flex flex-1 overflow-hidden">
 
                 {/* Code Editor */}

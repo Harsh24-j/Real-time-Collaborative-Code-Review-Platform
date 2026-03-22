@@ -1,10 +1,10 @@
-package com.codereview.util;
+﻿package com.codereview.util;
 
 import org.springframework.util.StringUtils;
 import org.owasp.encoder.Encode;
 
 /**
- * StringUtil — validation, sanitisation, and common string helpers.
+ * StringUtil â€” validation, sanitisation, and common string helpers.
  * Skills: Secure Coding, Server Side
  */
 public final class StringUtil {
@@ -17,14 +17,14 @@ public final class StringUtil {
         return StringUtils.hasText(s);
     }
 
-    /** Truncate to maxLength, appending "…" if shortened. */
+    /** Truncate to maxLength, appending "â€¦" if shortened. */
     public static String truncate(String s, int maxLength) {
         if (s == null)
             return null;
-        return s.length() <= maxLength ? s : s.substring(0, maxLength - 1) + "…";
+        return s.length() <= maxLength ? s : s.substring(0, maxLength - 1) + "â€¦";
     }
 
-    /** Sanitises user input to prevent XSS — encodes HTML entities. */
+    /** Sanitises user input to prevent XSS â€” encodes HTML entities. */
     public static String sanitizeHtml(String input) {
         if (input == null)
             return null;

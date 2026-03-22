@@ -1,4 +1,4 @@
-package com.codereview.controller;
+﻿package com.codereview.controller;
 
 import com.codereview.dto.UserResponse;
 import com.codereview.model.User;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * UserController — profile, leaderboard, stats.
+ * UserController â€” profile, leaderboard, stats.
  * Skills: RESTful API, Spring Boot, Full-Stack Web Development
  */
 @RestController
@@ -28,7 +28,7 @@ public class UserController {
     private final UserService userService;
     private final AnalyticsService analyticsService;
 
-    // ── GET /api/users/profile ────────────────────────────────────────────
+    // â”€â”€ GET /api/users/profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/profile")
     @Operation(summary = "Get current user's profile")
@@ -37,7 +37,7 @@ public class UserController {
         return ResponseEntity.ok(userService.toResponse(currentUser));
     }
 
-    // ── PUT /api/users/profile ────────────────────────────────────────────
+    // â”€â”€ PUT /api/users/profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PutMapping("/profile")
     @Operation(summary = "Update current user's full name or email")
@@ -52,7 +52,7 @@ public class UserController {
                         body.get("email")));
     }
 
-    // ── POST /api/users/change-password ───────────────────────────────────
+    // â”€â”€ POST /api/users/change-password â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/change-password")
     @Operation(summary = "Change current user's password")
@@ -67,7 +67,7 @@ public class UserController {
         return ResponseEntity.ok("Password changed successfully");
     }
 
-    // ── GET /api/users/leaderboard ────────────────────────────────────────
+    // â”€â”€ GET /api/users/leaderboard â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/leaderboard")
     @Operation(summary = "Get top users by points")
@@ -75,7 +75,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getLeaderboard());
     }
 
-    // ── GET /api/users/search ─────────────────────────────────────────────
+    // â”€â”€ GET /api/users/search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/search")
     @Operation(summary = "Search users by username or full name")
@@ -83,7 +83,7 @@ public class UserController {
         return ResponseEntity.ok(userService.searchUsers(q));
     }
 
-    // ── GET /api/users/{id} ───────────────────────────────────────────────
+    // â”€â”€ GET /api/users/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/{id}")
     @Operation(summary = "Get a user's public profile")
@@ -91,7 +91,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    // ── GET /api/users/{id}/stats ─────────────────────────────────────────
+    // â”€â”€ GET /api/users/{id}/stats â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/{id}/stats")
     @Operation(summary = "Get analytics stats for a user")
@@ -99,7 +99,7 @@ public class UserController {
         return ResponseEntity.ok(analyticsService.getUserAnalytics(id));
     }
 
-    // ── DELETE /api/users/{id} (Admin only) ──────────────────────────────
+    // â”€â”€ DELETE /api/users/{id} (Admin only) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")

@@ -1,4 +1,4 @@
-package com.codereview.controller;
+﻿package com.codereview.controller;
 
 import com.codereview.dto.CommentRequest;
 import com.codereview.dto.CommentResponse;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * CommentController — comment CRUD and resolve/unresolve.
+ * CommentController â€” comment CRUD and resolve/unresolve.
  * Skills: RESTful API, Spring Boot
  */
 @RestController
@@ -27,7 +27,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    // ── POST /api/reviews/{reviewId}/comments ─────────────────────────────
+    // â”€â”€ POST /api/reviews/{reviewId}/comments â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PostMapping("/api/reviews/{reviewId}/comments")
     @Operation(summary = "Add a comment to a review")
@@ -41,7 +41,7 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    // ── GET /api/reviews/{reviewId}/comments/line/{lineNumber} ────────────
+    // â”€â”€ GET /api/reviews/{reviewId}/comments/line/{lineNumber} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/api/reviews/{reviewId}/comments/line/{lineNumber}")
     @Operation(summary = "Get comments for a specific line")
@@ -51,7 +51,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getCommentsByLine(reviewId, lineNumber));
     }
 
-    // ── GET /api/reviews/{reviewId}/comments/unresolved ───────────────────
+    // â”€â”€ GET /api/reviews/{reviewId}/comments/unresolved â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @GetMapping("/api/reviews/{reviewId}/comments/unresolved")
     @Operation(summary = "Get unresolved comments for a review")
@@ -59,7 +59,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getUnresolvedComments(reviewId));
     }
 
-    // ── PUT /api/comments/{id} ────────────────────────────────────────────
+    // â”€â”€ PUT /api/comments/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PutMapping("/api/comments/{id}")
     @Operation(summary = "Update a comment (author only)")
@@ -72,7 +72,7 @@ public class CommentController {
                 commentService.updateComment(id, body.get("commentText"), currentUser.getUsername()));
     }
 
-    // ── DELETE /api/comments/{id} ─────────────────────────────────────────
+    // â”€â”€ DELETE /api/comments/{id} â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @DeleteMapping("/api/comments/{id}")
     @Operation(summary = "Delete a comment (author only)")
@@ -84,7 +84,7 @@ public class CommentController {
         return ResponseEntity.noContent().build();
     }
 
-    // ── PATCH /api/comments/{id}/resolve ─────────────────────────────────
+    // â”€â”€ PATCH /api/comments/{id}/resolve â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PatchMapping("/api/comments/{id}/resolve")
     @Operation(summary = "Mark a comment as resolved")
@@ -95,7 +95,7 @@ public class CommentController {
         return ResponseEntity.ok(commentService.resolveComment(id, currentUser.getUsername()));
     }
 
-    // ── PATCH /api/comments/{id}/unresolve ───────────────────────────────
+    // â”€â”€ PATCH /api/comments/{id}/unresolve â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     @PatchMapping("/api/comments/{id}/unresolve")
     @Operation(summary = "Mark a comment as unresolved")
